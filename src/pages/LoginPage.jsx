@@ -90,6 +90,7 @@ export async function action({ request }) {
   };
   console.log("Data to send");
   console.log(dataToSend);
+  console.log("url :", url);
   try {
     const response = await fetch(`${url}/Authentication/authenticate`, {
       method: "POST",
