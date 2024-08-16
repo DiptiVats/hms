@@ -1,0 +1,102 @@
+.opdWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: -3rem 2.5rem;
+}
+.opdMainWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 99%;
+}
+.secondWrapper {
+  width: 45%;
+  min-width: 25rem;
+  margin-left: 1rem;
+}
+.secondWrapper > div > div {
+  padding: 1.5rem 1.5rem;
+  height: 24rem !important;
+  width: 90% !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.secondWrapper > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.secondWrapper > div > div > div > select {
+  width: 8rem;
+  height: 2rem;
+  border-radius: 3px;
+  background-color: #282b2f;
+}
+select:focus {
+  outline: none;
+}
+.firstWrapper,
+.thirdWrapper {
+  width: 30%;
+  min-width: 17rem;
+}
+.thirdWrapper {
+  margin-left: 1rem;
+}
+.opdMainWrapper > div > p {
+  color: orange;
+}
+
+.firstWrapper > div,
+.secondWrapper > div,
+.thirdWrapper > div {
+  color: rgb(173, 173, 173);
+  width: 100%;
+  height: 28rem;
+  border-top: 1px solid rgb(92, 92, 92);
+
+  border-radius: 3px;
+  background-color: #282b2f;
+}
+.firstWrapper > div,
+.thirdWrapper > div {
+  overflow-y: scroll;
+}
+.firstWrapper > div > ul,
+.thirdWrapper > div > ul {
+  list-style: none;
+  margin-left: -1rem;
+}
+.inputFirst {
+  height: 1rem;
+  width: 100%;
+  padding: 0.4rem 0.4rem;
+  background-color: #282b2f;
+  border: 1px solid rgb(87, 87, 87);
+  border-radius: 3px;
+}
+.inputSame {
+  height: 5rem;
+  width: 100%;
+  padding: 0.4rem 0.4rem;
+  background-color: #282b2f;
+  border: 1px solid rgb(87, 87, 87);
+  border-radius: 3px;
+}
+.inputFlex {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-top: -15rem;
+}
+.buttonSection {
+  width: 99%;
+  height: 5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+.buttonSection > p > button {
+  width: auto;
+  padding: 0.4rem 1rem;
+}

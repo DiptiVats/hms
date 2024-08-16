@@ -1,0 +1,79 @@
+.wrapper {
+  color: rgb(129, 129, 129);
+  width: 103%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/* --------------------  hospital name and card ----------------- */
+.wrapper_child {
+  width: 49.5%;
+  min-width: 30rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.wrapper_child_1 > p {
+  font-size: 1.2rem;
+  font-weight: 100;
+}
+
+.wrapper_child_1 > div {
+  margin-top: -1rem;
+}
+.wrapper_child_1 > div > a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.wrapper_child_2 {
+  background-color: #282b2f;
+  padding-left: 1rem;
+  border-top: 1px solid rgb(90, 90, 90);
+  border-radius: 3px;
+  width: 23rem;
+  height: 6rem;
+  margin-left: 1rem;
+}
+
+.wrapper_child_2 > div > p {
+  font-size: 1.3rem;
+  font-weight: 100;
+}
+.wrapper_child_2 > div > div {
+  font-size: 0.9rem;
+  margin-top: -1.3rem;
+}
+
+/* ----------------------------- inputs ----------------------------*/
+.wrapper_child_input {
+  width: 35%;
+  margin-top: -5px;
+}
+
+.wrapper_child_input > div {
+  margin-top: -0.4rem;
+}
+.sameInp {
+  padding: 0.6rem 0.6rem;
+  width: 83%;
+  min-width: 10rem;
+  background-color: grey;
+  border: 1px solid rgb(82, 82, 82);
+  color: rgb(48, 48, 48);
+  border-radius: 3px;
+}
+
+.sameInp:focus {
+  color: orange;
+  background-color: var(--background-color-navyblue);
+}
+
+.diffInp {
+  padding: 0.6rem 0.6rem;
+  width: 83%;
+  min-width: 10rem;
+  background-color: var(--background-color-navyblue);
+  border: 1px solid rgb(82, 82, 82);
+  border-radius: 3px;
+}

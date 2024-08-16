@@ -1,0 +1,27 @@
+.wrapper {
+  margin-left: 3rem;
+  margin-top: -3rem;
+}
+
+.wrapper_child {
+  width: 49.5%;
+  min-width: 30rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.wrapper_child_1 > p {
+  font-size: 1.2rem;
+  font-weight: 100;
+  color: grey;
+}
+
+.wrapper_child_1 > div {
+  margin-top: -1rem;
+  color: grey;
+}
+
+.wrapper_child_1 > div > a {
+  text-decoration: none;
+  color: #007bff;
+}
