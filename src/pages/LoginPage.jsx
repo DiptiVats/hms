@@ -90,7 +90,6 @@ export async function action({ request }) {
   };
   console.log("Data to send");
   console.log(dataToSend);
-  console.log("url :", url);
   try {
     const response = await fetch(`${url}/Authentication/authenticate`, {
       method: "POST",
@@ -105,6 +104,7 @@ export async function action({ request }) {
     }
     console.log(response);
     const token = await response.text();
+    console.log("Authentication Token is : ", token);
     localStorage.setItem("token", token);
     if (token) {
       return redirect("/dashboard");

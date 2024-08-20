@@ -1,10 +1,10 @@
 import classes from "./AddPatient.module.css";
-import { Form, redirect, useRouteLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { url } from "../util/url";
 
 export default function EditPatient() {
-  const patientDataToEdit = useRouteLoaderData("patientData");
+  const patientDataToEdit = useLoaderData("patientData");
   return (
     <div className={classes.mainWrapper}>
       <div>
@@ -21,14 +21,13 @@ export default function EditPatient() {
             type="text"
             name="firstName"
             placeholder="First Name*"
-            defaultValue={patientDataToEdit.fname}
+            defaultValue={patientDataToEdit.name}
             required
           />
           <input
             type="text"
             name="secondName"
-            nameplaceholder="Last Name*"
-            defaultValue={patientDataToEdit.lname}
+            placeholder="Last Name*"
             required
           />
         </div>
@@ -37,16 +36,30 @@ export default function EditPatient() {
           <input
             type="number"
             name="age"
-            defaultValue={patientDataToEdit.age}
             className={classes.firstGridInp}
+            defaultValue={patientDataToEdit.age}
             required
           />
 
           <div>
-            <input type="radio" name="gender" id="male" value="male" />
+            <input
+              type="radio"
+              name="gender"
+              id="male"
+              value="male"
+              defaultChecked={patientDataToEdit === "m"}
+              readOnly
+            />
             <label htmlFor="male"> Male </label>
 
-            <input type="radio" name="gender" id="female" value="female" />
+            <input
+              type="radio"
+              name="gender"
+              id="female"
+              value="female"
+              defaultChecked={patientDataToEdit === "f"}
+              readOnly
+            />
             <label htmlFor="female"> Female </label>
           </div>
 
@@ -64,6 +77,7 @@ export default function EditPatient() {
             type="number"
             name="telephone"
             placeholder="Telephone"
+            defaultValue={patientDataToEdit.telephone}
             minLength="10"
           />
           <input type="text" name="nextkin" placeholder="Nextkin" />
@@ -80,14 +94,32 @@ export default function EditPatient() {
         </div>
         {/* --------------------- fourth grid ----------------*/}
         <div className={classes.fourthGrid}>
-          <input type="text" name="fatherName" placeholder="Father Name" />
-          <input type="text" name="motherName" placeholder="Mother Name" />
-          <input type="text" name="taxNumID" placeholder="Tax Number ID" />
+          <input
+            type="text"
+            name="fatherName"
+            placeholder="Father Name"
+            defaultValue={patientDataToEdit.fatherName}
+          />
+          <input
+            type="text"
+            name="motherName"
+            placeholder="Mother Name"
+            defaultValue={patientDataToEdit.motherName}
+          />
+          <input
+            type="text"
+            name="taxNumID"
+            placeholder="Tax Number ID"
+            defaultValue={patientDataToEdit.taxCode}
+          />
         </div>
         <div className={classes.fifthGrid}>
           <div>Note</div>
           <div>
-            <textarea name="patNote"></textarea>
+            <textarea
+              name="patNote"
+              defaultValue={patientDataToEdit.patNote}
+            ></textarea>
           </div>
         </div>
         {/* --------------------- sixth grid ----------------*/}
@@ -104,8 +136,13 @@ export default function EditPatient() {
 }
 
 export async function action({ request }) {
+  const token = localStorage.getItem("token");
+  const CurrentUrl = new URL(request.url);
+  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
+  const patId = param.patId;
   const data = await request.formData();
   const dataToSend = {
+    patId: patId,
     firstName: data.get("firstName"),
     lastName: data.get("secondName"),
     age: data.get("age"),
@@ -123,10 +160,11 @@ export async function action({ request }) {
   };
   console.log(dataToSend);
   try {
-    const response = await fetch(`${url}/Patient/registerPatient`, {
+    const response = await fetch(`${url}/Patient/editPatient`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(dataToSend),
     });
@@ -134,24 +172,27 @@ export async function action({ request }) {
     return redirect("/dashboard");
   } catch (err) {
     console.log(err);
+    return err;
   }
 }
 
 /*export async function loader({ request }) {
+  const token = localStorage.getItem("token");
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
-  const patId = param.patientId;
-  console.log(patId);
+  console.log("patient ID: ", param);
   try {
     const response = await fetch(`${url}/Patient/loadPatient`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ patId: patId }),
+      body: JSON.stringify(param),
     });
+    console.log(response);
     const resData = await response.json();
-    console.log(resData);
+    console.log("data  :", resData);
     return resData;
   } catch (err) {
     console.log(err);

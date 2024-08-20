@@ -11,7 +11,19 @@ export default function MakePayment() {
           </div>
         </div>
       </div>
-      <div></div>
+      <div>
+        <div className={classes.firstInputSection}>
+          <div style={{ width: "45%" }}>
+            <input />
+          </div>
+          <div style={{ width: "23%" }}>
+            <input />
+          </div>
+          <div style={{ width: "23%" }}>
+            <input />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

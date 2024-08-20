@@ -1,18 +1,19 @@
 import OPD_Header from "./OPD_Header";
 import classes from "./OPD_Main.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { opdArr1, opdArr2 } from "./opdArray";
 export default function OPD_Main() {
+  const patientData = useLoaderData();
   return (
     <div className={classes.opdWrapper}>
-      <OPD_Header />
+      <OPD_Header patData={patientData} />
       <div className={classes.opdMainWrapper}>
         <div className={classes.firstWrapper}>
           <p>Notes</p>
           <div>
             <ul>
-              {opdArr1.map((data) => (
-                <li key={data}>
+              {opdArr1.map((data, index) => (
+                <li key={[index]}>
                   <input type="checkbox" />
                   &nbsp;
                   {data}

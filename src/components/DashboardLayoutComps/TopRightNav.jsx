@@ -7,7 +7,6 @@ import { GrPowerShutdown } from "react-icons/gr";
 export default function TopRightNav() {
   function handleLogout() {
     localStorage.removeItem("token");
-    return redirect();
   }
   return (
     <div className={classes.buttonWrapper}>

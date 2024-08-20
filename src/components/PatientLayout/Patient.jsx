@@ -2,9 +2,10 @@ import { FaEdit } from "react-icons/fa";
 import { SlExclamation } from "react-icons/sl";
 import classes from "./Patient.module.css";
 import AddPatientForm from "./AddPatientForm";
-import { Link, useRouteLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { url } from "../../util/url";
 export default function Patient() {
-  const patientData = useRouteLoaderData("patientData");
+  const patientData = useLoaderData("patientData");
 
   return (
     <div className={classes.patientDetail}>
@@ -54,13 +55,13 @@ export default function Patient() {
                     )}
                   </td>
                   <td>
-                    <Link to="/dashboard/admit">
+                    <Link to={`/dashboard/admit?patId=${data.tokenId}`}>
                       <button>Admit</button>
                     </Link>
                   </td>
                   <td>
-                    <Link to="/dashboard/opd">
-                      <button>ODP</button>
+                    <Link to={`/dashboard/opd?patId=${data.tokenId}`}>
+                      <button type="button">ODP</button>
                     </Link>
                   </td>
                   <td>
@@ -99,4 +100,51 @@ export default function Patient() {
       </div>
     </div>
   );
+}
+export async function loader({ request }) {
+  // checking if token is there
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    try {
+      const CurrentUrl = new URL(request.url);
+      const param = Object.fromEntries(CurrentUrl.searchParams.entries());
+      console.log(param);
+
+      // ------------- loading all the patient data ---------------------
+      let Url = `${url}/Patient/loadAllPatient`;
+      let fetchBlock = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      console.log(token);
+
+      // ------------- loading patient data ---------------------
+      if (param.patId) {
+        Url = `${url}/Patient/loadPatient`;
+        fetchBlock = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(param),
+        };
+      }
+
+      const response = await fetch(Url, fetchBlock);
+      console.log(response);
+      const resData = await response.json();
+      console.log(resData);
+      return resData;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  } else {
+    return redirect("/");
+  }
 }

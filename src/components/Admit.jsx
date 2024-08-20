@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import classes from "./Admit.module.css";
 export default function Admit() {
+  const patientData = useLoaderData();
   return (
     <div className={classes.mainWrapper}>
       <div className={classes.topWrapper}>
@@ -14,33 +15,43 @@ export default function Admit() {
       {/* --------- first grid* ---------------*/}
       <div className={classes.firstGrid}>
         <div className={classes.firstGridElem1}>
-          <input type="text" defaultValue="Patient Name: Deepak Sharma" />
+          <input type="text" defaultValue={patientData.name} />
         </div>
         <div className={classes.firstGridElem2}>
           <input type="text" defaultValue="ID No. 47" />
-          <input type="text" defaultValue="Father Name: Tarun Sharma" />
+          <input type="text" defaultValue={patientData.fatherName} />
         </div>
       </div>
       {/* --------- second grid* ---------------*/}
       <div className={classes.secondGrid}>
         <div className={classes.secondGridElem1}>
           <div className={classes.firstPart}>
-            <input type="text" defaultValue="Age: 32" />
+            <input type="text" defaultValue={patientData.age} />
           </div>
           <div className={classes.secondPart}>
             <span>Sex :</span>
             <div>
-              <input type="radio" value="male" name="gender" />
+              <input
+                type="radio"
+                value="male"
+                name="gender"
+                defaultChecked={patientData.gender === "m"}
+              />
             </div>
             <p>Male</p>
             <div>
-              <input type="radio" value="female" name="gender" />
+              <input
+                type="radio"
+                value="female"
+                name="gender"
+                defaultChecked={patientData.gender === "f"}
+              />
             </div>
             <p>Female</p>
           </div>
         </div>
         <div className={classes.secondGridElem2}>
-          <input type="text" defaultValue="Address: Dwarka, New Delhi" />
+          <input type="text" defaultValue={patientData.address} />
         </div>
       </div>
       {/* --------- third grid* ---------------*/}
