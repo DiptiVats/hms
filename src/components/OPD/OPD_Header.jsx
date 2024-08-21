@@ -14,7 +14,7 @@ export default function OPD_Header({ patData }) {
         <div className={classes.wrapper_child_2}>
           <div>
             <p>
-              {patData.name} | {patData.age} Yrs |{" "}
+              {patData.name} | {patData.age} Yrs |
               {patData.gender === "m" ? "Male" : "Female"}
             </p>
             <div>

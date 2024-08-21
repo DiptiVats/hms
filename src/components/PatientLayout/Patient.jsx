@@ -4,6 +4,7 @@ import classes from "./Patient.module.css";
 import AddPatientForm from "./AddPatientForm";
 import { Link, useLoaderData } from "react-router-dom";
 import { url } from "../../util/url";
+import { redirect } from "react-router-dom";
 export default function Patient() {
   const patientData = useLoaderData("patientData");
 
@@ -139,6 +140,9 @@ export async function loader({ request }) {
       console.log(response);
       const resData = await response.json();
       console.log(resData);
+      if (resData === Object) {
+        console.log("object: ", resData);
+      }
       return resData;
     } catch (err) {
       console.log(err);

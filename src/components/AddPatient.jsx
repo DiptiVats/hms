@@ -113,6 +113,7 @@ export async function action({ request }) {
       body: JSON.stringify(dataToSend),
     });
     console.log(response);
+
     return redirect("/dashboard");
   } catch (err) {
     console.log(err);
