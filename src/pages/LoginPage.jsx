@@ -91,7 +91,7 @@ export async function action({ request }) {
   console.log("Data to send");
   console.log(dataToSend);
   try {
-    const response = await fetch(`${url}/Authentication/authenticate`, {
+    const response = await fetch(`${url}/Authentication/authenticated`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
