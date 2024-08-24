@@ -2,12 +2,13 @@ import { FaEdit } from "react-icons/fa";
 import { SlExclamation } from "react-icons/sl";
 import classes from "./Patient.module.css";
 import AddPatientForm from "./AddPatientForm";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigation } from "react-router-dom";
 import { url } from "../../util/url";
 import { redirect } from "react-router-dom";
 export default function Patient() {
+  const navigation = useNavigation();
   const patientData = useLoaderData("patientData");
-
+  console.log(navigation.state === "loading");
   return (
     <div className={classes.patientDetail}>
       <div>
@@ -61,7 +62,7 @@ export default function Patient() {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/dashboard/opd?patId=${data.tokenId}`}>
+                    <Link to={`/dashboard?mode=opd?patId=${data.tokenId}`}>
                       <button type="button">ODP</button>
                     </Link>
                   </td>
@@ -71,7 +72,7 @@ export default function Patient() {
                     </Link>
                   </td>
                   <td>
-                    <Link to="/dashboard/consent">
+                    <Link to={`/dashboard?mode=consent?patId=${data.tokenId}`}>
                       <button>Consent</button>
                     </Link>
                   </td>
@@ -89,7 +90,10 @@ export default function Patient() {
             ) : (
               <tr>
                 <th
-                  style={{ borderTopWidth: "2rem", backgroundColor: "#22252a" }}
+                  style={{
+                    borderTopWidth: "2rem",
+                    backgroundColor: "#22252a",
+                  }}
                   colSpan={9}
                 >
                   No Records!
@@ -142,6 +146,9 @@ export async function loader({ request }) {
       console.log(resData);
       if (resData === Object) {
         console.log("object: ", resData);
+      }
+      if (param.patId) {
+        return [resData];
       }
       return resData;
     } catch (err) {

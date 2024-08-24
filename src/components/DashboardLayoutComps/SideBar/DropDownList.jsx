@@ -15,11 +15,9 @@ export default function DorpDownList({
         type="none"
         style={{
           display: isClick ? "block" : "none",
-          transitionDuration: "1s",
         }}
       >
         <li className={classes.list}>
-          <hr className={classes.horizontalRow} />
           <NavLink
             to={link1}
             className={({ isActive }) =>
@@ -27,30 +25,34 @@ export default function DorpDownList({
             }
             end
           >
+            <hr className={classes.horizontalRow} />
+
             {text1}
           </NavLink>
         </li>
 
         <li className={classes.list}>
-          <hr className={classes.horizontalRow} />
           <NavLink
             to={link2}
             className={({ isActive }) =>
               isActive ? classes.activeLink : classes.links
             }
           >
+            <hr className={classes.horizontalRow} />
+
             {text2}
           </NavLink>
         </li>
 
         <li className={classes.list}>
-          <hr className={classes.horizontalRow} />
           <NavLink
             to={link3}
             className={({ isActive }) =>
               isActive ? classes.activeLink : classes.links
             }
           >
+            <hr className={classes.horizontalRow} />
+
             {link3}
           </NavLink>
         </li>

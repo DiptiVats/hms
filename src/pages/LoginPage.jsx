@@ -2,9 +2,13 @@ import classes from "./LoginPage.module.css";
 import { IoIosLock } from "react-icons/io";
 import ohLogo from "../assets/oh_logo.jpg";
 import { motion } from "framer-motion";
-import { Link, Form, redirect } from "react-router-dom";
+import { Link, Form, redirect, useNavigation } from "react-router-dom";
 import { url } from "../util/url";
+import { HashLoader } from "react-spinners";
 export default function LoginPage() {
+  const navigation = useNavigation();
+
+  console.log(navigation.state === "submitting");
   return (
     <>
       <div className={classes.barPattern}>
@@ -14,69 +18,78 @@ export default function LoginPage() {
         <span className={classes.green}></span>
         <span className={classes.orange}></span>
       </div>
+      {navigation.state === "submitting" || navigation.state === "loading" ? (
+        <HashLoader
+          color="orange"
+          cssOverride={{ marginTop: "20%", marginLeft: "46%" }}
+          size={100}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      ) : (
+        <div className={classes.mainAuth}>
+          <motion.div
+            className={classes.popup}
+            initial={{ scale: 0.3, opacity: 0.1 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", duration: 0.7, bounce: 0.6 }}
+          >
+            <div>
+              <img src={ohLogo} alt="logo" className={classes.logoImg} />
+            </div>
+            <div>
+              <Form method="post" className={classes.loginForm}>
+                <h1 className={classes.formText}>Login to your account</h1>
+                <div>
+                  <input
+                    type="text"
+                    name="username"
+                    className={classes.inpFields}
+                    placeholder="user@domain.com"
+                  />
+                </div>
+                <div className={classes.formPassword}>
+                  <input
+                    type="password"
+                    name="password"
+                    className={classes.inpFields}
+                    placeholder="password"
+                  />
+                </div>
+                <div>
+                  <select name="role" className={classes.formOption}>
+                    <option>Login as hospital</option>
+                    <option>Login as Receptionsist</option>
+                  </select>
+                </div>
 
-      <div className={classes.mainAuth}>
-        <motion.div
-          className={classes.popup}
-          initial={{ scale: 0.3, opacity: 0.1 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", duration: 0.7, bounce: 0.6 }}
-        >
-          <div>
-            <img src={ohLogo} alt="logo" className={classes.logoImg} />
-          </div>
-          <div>
-            <Form method="post" className={classes.loginForm}>
-              <h1 className={classes.formText}>Login to your account</h1>
-              <div>
-                <input
-                  type="text"
-                  name="username"
-                  className={classes.inpFields}
-                  placeholder="user@domain.com"
-                />
-              </div>
-              <div className={classes.formPassword}>
-                <input
-                  type="password"
-                  name="password"
-                  className={classes.inpFields}
-                  placeholder="password"
-                />
-              </div>
-              <div>
-                <select name="role" className={classes.formOption}>
-                  <option>Login as hospital</option>
-                  <option>Login as Receptionsist</option>
-                </select>
-              </div>
-
-              <div className={classes.formCheckbox}>
-                &nbsp;
-                <input
-                  type="checkbox"
-                  name="rememberMe"
-                  className={classes.inpCheckbox}
-                />
-                Remember me
-              </div>
-              <button className={classes.formButton}>LOGIN</button>
-              <p>
-                <IoIosLock className={classes.icon} />
-                <Link to="" id={classes.forgotLink}>
-                  &nbsp;Forgot password
-                </Link>
-              </p>
-              <p className={classes.formText3}>
-                Don't have an account?
-                <Link to="" id={classes.registerLink}>
-                  &nbsp;Register
-                </Link>
-              </p>
-            </Form>
-          </div>
-        </motion.div>
-      </div>
+                <div className={classes.formCheckbox}>
+                  &nbsp;
+                  <input
+                    type="checkbox"
+                    name="rememberMe"
+                    className={classes.inpCheckbox}
+                  />
+                  Remember me
+                </div>
+                <button className={classes.formButton}>LOGIN</button>
+                <p>
+                  <IoIosLock className={classes.icon} />
+                  <Link to="" id={classes.forgotLink}>
+                    &nbsp;Forgot password
+                  </Link>
+                </p>
+                <p className={classes.formText3}>
+                  Don't have an account?
+                  <Link to="" id={classes.registerLink}>
+                    &nbsp;Register
+                  </Link>
+                </p>
+              </Form>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </>
   );
 }

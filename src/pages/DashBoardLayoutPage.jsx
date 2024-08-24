@@ -2,9 +2,11 @@ import classes from "./DashBoardLayoutPage.module.css";
 import ohLogo from "../assets/oh_logo.jpg";
 import TopRightNav from "../components/DashboardLayoutComps/TopRightNav";
 import SideBar from "../components/DashboardLayoutComps/SideBar/SideBar";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
+import { HashLoader } from "react-spinners";
 
 export default function DashBoardLayoutPage() {
+  const navigation = useNavigation();
   return (
     <>
       <div className={classes.mainNavWrapper}>
@@ -22,7 +24,17 @@ export default function DashBoardLayoutPage() {
           </div>
 
           <div className={classes.bottomRightNav}>
-            <Outlet />
+            {navigation.state === "loading" ? (
+              <HashLoader
+                color="orange"
+                cssOverride={{ marginTop: "15%", marginLeft: "45%" }}
+                size={50}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : (
+              <Outlet />
+            )}
           </div>
         </div>
       </div>

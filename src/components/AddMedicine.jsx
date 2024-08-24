@@ -1,4 +1,4 @@
-import { Link, Form, json, redirect } from "react-router-dom";
+import { Link, Form, redirect } from "react-router-dom";
 import classes from "./AddMedicine.module.css";
 import { url } from "../util/url";
 export default function AddMedicine() {

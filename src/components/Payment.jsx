@@ -1,10 +1,9 @@
-import { Link, useLoaderData, redirect } from "react-router-dom";
+import { Link, useLoaderData, redirect, useNavigation } from "react-router-dom";
 import { FaPrint } from "react-icons/fa";
 import classes from "./Payment.module.css";
-import { url } from "../util/url";
 export default function Payment() {
   const paymentData = useLoaderData();
-  console.log(paymentData);
+  const navigation = useNavigation();
   return (
     <div>
       <div className={classes.topWrapper}>
