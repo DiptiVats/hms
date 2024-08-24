@@ -1,13 +1,6 @@
 import { NavLink } from "react-router-dom";
 import classes from "./DropDownList.module.css";
-export default function DorpDownList({
-  text1,
-  text2,
-  isClick,
-  link1,
-  link2,
-  link3,
-}) {
+export default function DorpDownList({ text1, text2, isClick, link1, link2 }) {
   return (
     <>
       <ul
@@ -41,19 +34,6 @@ export default function DorpDownList({
             <hr className={classes.horizontalRow} />
 
             {text2}
-          </NavLink>
-        </li>
-
-        <li className={classes.list}>
-          <NavLink
-            to={link3}
-            className={({ isActive }) =>
-              isActive ? classes.activeLink : classes.links
-            }
-          >
-            <hr className={classes.horizontalRow} />
-
-            {link3}
           </NavLink>
         </li>
       </ul>

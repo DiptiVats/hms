@@ -3,7 +3,6 @@ import { GoFile } from "react-icons/go";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { IoPersonOutline } from "react-icons/io5";
 import classes from "./SideBarBottom.module.css";
-import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import DorpDownList from "./DropDownList";
 import { useState } from "react";

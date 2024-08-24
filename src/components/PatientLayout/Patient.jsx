@@ -41,7 +41,8 @@ export default function Patient() {
                   <td>{[index + 1]}</td>
                   <td>{data.tokenId}</td>
                   <td>
-                    {data.name} | {data.age} Yrs | {data.gender}
+                    {data.name} | {data.age} Yrs |{" "}
+                    {data.gender === "m" ? "Male" : "Female"}
                     <br />
                     Adderss: {data.address} <br />
                     Telephone: {data.telephone}
@@ -49,7 +50,7 @@ export default function Patient() {
                   <td>
                     {data.prevPaymentDetail ? (
                       <span>
-                        {`Rs.${data.prevPaymentDetail}`}
+                        {`Rs.${data.prevPaymentDetail}`}{" "}
                         <SlExclamation className={classes.paymentIcon} />
                       </span>
                     ) : (

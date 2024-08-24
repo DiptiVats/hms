@@ -16,10 +16,10 @@
 }
 .roundedButton {
   background-color: #007bff;
-  color: rgb(201, 201, 201);
+  color: rgb(220, 220, 220);
   padding: 0.5rem 0.6rem;
   border: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-top: -10px;
   margin-right: 2rem;
   width: 8.5rem;
@@ -84,18 +84,13 @@
 }
 .searchButton,
 .resetButton {
-  color: rgb(221, 221, 221);
+  color: rgb(222, 222, 222);
   border: none;
   width: 19rem;
   height: 2rem;
   border-radius: 3px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-left: 2.5rem;
   transition-duration: 0.5s;
   cursor: pointer;
-}
-@media screen and (min-width: 80%) {
-  body {
-    background-color: red;
-  }
 }
