@@ -64,7 +64,7 @@ export default function Patient() {
                   </td>
                   <td>
                     <Link to={`/dashboard?mode=opd?patId=${data.tokenId}`}>
-                      <button type="button">ODP</button>
+                      <button type="button">OPD</button>
                     </Link>
                   </td>
                   <td>

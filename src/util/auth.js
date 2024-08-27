@@ -11,3 +11,10 @@ export async function tokenLoader() {
   }
   return null;
 }
+
+export async function checkExpirationToken(statusCode) {
+  if (statusCode === 400) {
+    localStorage.removeItem("token");
+    return redirect("/");
+  }
+}
