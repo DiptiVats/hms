@@ -148,7 +148,7 @@ export async function loader({ request }) {
       if (resData === Object) {
         console.log("object: ", resData);
       }
-      if (param.patId) {
+      if (param.patId && resData) {
         return [resData];
       }
       return resData;
