@@ -28,10 +28,10 @@ export default function AddPatient() {
           />
 
           <div>
-            <input type="radio" name="gender" id="male" value="male" />
+            <input type="radio" name="gender" id="M" value="M" />
             <label htmlFor="male"> Male </label>
 
-            <input type="radio" name="gender" id="female" value="female" />
+            <input type="radio" name="gender" id="F" value="F" />
             <label htmlFor="female"> Female </label>
           </div>
 

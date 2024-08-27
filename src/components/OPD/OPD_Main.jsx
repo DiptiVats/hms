@@ -5,8 +5,15 @@ import { opdArr1, opdArr2 } from "./opdArray";
 import { useState } from "react";
 export default function OPD_Main() {
   const patientData = useLoaderData();
-  const [selectedMedicines, setSelectedMedicines] = useState({});
-
+  const [selectedMedicines, setSelectedMedicines] = useState([]);
+  function handleCheckboxChange(event) {
+    const { name, checked } = event.target;
+    if (checked) {
+      setSelectedMedicines([...selectedMedicines, name]);
+    } else {
+      setSelectedMedicines(selectedMedicines.filter((item) => item !== name));
+    }
+  }
   return (
     <div className={classes.opdWrapper}>
       <OPD_Header patData={patientData} />
@@ -15,11 +22,11 @@ export default function OPD_Main() {
           <p>Notes</p>
           <div>
             <ul>
-              {opdArr1.map((data, index) => (
-                <li key={[index]}>
-                  <input type="checkbox" value={data} />
+              {opdArr1.map((data) => (
+                <li key={data.id}>
+                  <input type="checkbox" value={data.value} />
                   &nbsp;
-                  {data}
+                  {data.value}
                 </li>
               ))}
             </ul>
@@ -68,6 +75,7 @@ export default function OPD_Main() {
                   type="text"
                   placeholder="Treatment"
                   className={classes.inputSame}
+                  value={selectedMedicines}
                 />
               </div>
             </div>
@@ -80,10 +88,15 @@ export default function OPD_Main() {
           <div>
             <ul>
               {opdArr2.map((data) => (
-                <li key={data}>
-                  <input type="checkbox" />
+                <li key={data.id}>
+                  <input
+                    type="checkbox"
+                    name={data.value}
+                    checked={selectedMedicines.includes(data.value)}
+                    onChange={handleCheckboxChange}
+                  />
                   &nbsp;
-                  {data}
+                  {data.value}
                 </li>
               ))}
             </ul>
