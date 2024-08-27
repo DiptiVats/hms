@@ -119,7 +119,7 @@ export async function action({ request }) {
     const token = await response.text();
     console.log("Authentication Token is : ", token);
     localStorage.setItem("token", token);
-    if (token) {
+    if (token && response.status === 200) {
       return redirect("/dashboard");
     }
     console.log(token);

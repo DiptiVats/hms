@@ -140,14 +140,18 @@ export async function loader({ request }) {
           body: JSON.stringify(param),
         };
       }
-
       const response = await fetch(Url, fetchBlock);
+      if (response.status === 400) {
+        localStorage.removeItem("token");
+        return redirect("/");
+      }
       console.log(response);
       const resData = await response.json();
       console.log(resData);
       if (resData === Object) {
         console.log("object: ", resData);
       }
+
       if (param.patId && resData) {
         return [resData];
       }

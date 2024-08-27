@@ -21,13 +21,14 @@ export default function EditPatient() {
             type="text"
             name="firstName"
             placeholder="First Name*"
-            defaultValue={patientDataToEdit.name}
+            defaultValue={patientDataToEdit.fname}
             required
           />
           <input
             type="text"
             name="secondName"
             placeholder="Last Name*"
+            defaultValue={patientDataToEdit.lname}
             required
           />
         </div>
