@@ -63,7 +63,7 @@ export default function Patient() {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/dashboard?mode=opd?patId=${data.tokenId}`}>
+                    <Link to={`/dashboard/opd?patId=${data.tokenId}`}>
                       <button type="button">OPD</button>
                     </Link>
                   </td>
@@ -73,7 +73,7 @@ export default function Patient() {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/dashboard?mode=consent?patId=${data.tokenId}`}>
+                    <Link to={`/dashboard/consent?patId=${data.tokenId}`}>
                       <button>Consent</button>
                     </Link>
                   </td>

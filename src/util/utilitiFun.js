@@ -15,6 +15,10 @@ export default async function patientLoaderUtilFun({ request }) {
         },
         body: JSON.stringify(param),
       });
+      if (response.status === 400) {
+        localStorage.removeItem("token");
+        return redirect("/");
+      }
       console.log(response);
       const resData = await response.json();
       console.log("data  :", resData);

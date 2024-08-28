@@ -85,6 +85,10 @@ export async function loader() {
           Authorization: `Bearer ${token}`,
         },
       });
+      if (response.status === 400) {
+        localStorage.removeItem("token");
+        return redirect("/");
+      }
       console.log("data Fetched");
       const resData = response.json();
       console.log(resData);

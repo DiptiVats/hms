@@ -30,8 +30,8 @@
 .firstInputSection {
   display: flex;
   flex-direction: row;
-  gap: 10px;
-  width: 98%;
+  width: 99%;
+  gap: 25px;
 }
 
 .firstInputSection > div > input {
@@ -39,4 +39,19 @@
   padding: 0.4rem 0.4rem;
   background-color: var(--background-color-navyblue);
   border: 1px solid rgb(70, 70, 70);
+  border-radius: 3px;
+}
+
+/*--------------- payment Detail Section -------------------*/
+.paymentDetailSection > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 74rem;
+  background-color: #282b2f;
+  line-height: 5px;
+  border-radius: 5px;
+  color: rgb(167, 167, 167);
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
 }

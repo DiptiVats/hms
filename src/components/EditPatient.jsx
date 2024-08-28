@@ -41,13 +41,13 @@ export default function EditPatient() {
             defaultValue={patientDataToEdit.age}
             required
           />
-
           <div>
             <input
               type="radio"
               name="gender"
               id="male"
               value="male"
+              className={classes.radioButton}
               defaultChecked={patientDataToEdit === "m"}
               readOnly
             />
@@ -58,6 +58,7 @@ export default function EditPatient() {
               name="gender"
               id="female"
               value="female"
+              className={classes.radioButton}
               defaultChecked={patientDataToEdit === "f"}
               readOnly
             />
@@ -169,6 +170,10 @@ export async function action({ request }) {
       },
       body: JSON.stringify(dataToSend),
     });
+    if (response.status === 400) {
+      localStorage.removeItem("token");
+      return redirect("/");
+    }
     console.log(response);
     return redirect("/dashboard");
   } catch (err) {

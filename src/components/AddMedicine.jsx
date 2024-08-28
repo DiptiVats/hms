@@ -94,5 +94,9 @@ export async function action({ request }) {
     },
     body: JSON.stringify(dataToSend),
   });
+  if (response.status === 400) {
+    localStorage.removeItem("token");
+    return redirect("/");
+  }
   return response.json(), redirect("/dashboard/medicine");
 }
