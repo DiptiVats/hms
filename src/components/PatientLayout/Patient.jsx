@@ -42,7 +42,9 @@ export default function Patient() {
                   <td>{data.tokenId}</td>
                   <td>
                     {data.name} | {data.age} Yrs |{" "}
-                    {data.gender === "m" ? "Male" : "Female"}
+                    {data.gender === "M" || data.gender === "m"
+                      ? "Male"
+                      : "Female"}
                     <br />
                     Adderss: {data.address} <br />
                     Telephone: {data.telephone}
@@ -130,6 +132,10 @@ export async function loader({ request }) {
 
       // ------------- loading patient data ---------------------
       if (param.patId) {
+        let dataToSend = { patId: param.patId };
+        if (param.patId.length === 10) {
+          dataToSend = { patTele: param.patId };
+        }
         Url = `${url}/Patient/loadPatient`;
         fetchBlock = {
           method: "POST",
@@ -137,7 +143,7 @@ export async function loader({ request }) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(param),
+          body: JSON.stringify(dataToSend),
         };
       }
       const response = await fetch(Url, fetchBlock);
@@ -148,13 +154,11 @@ export async function loader({ request }) {
       console.log(response);
       const resData = await response.json();
       console.log(resData);
-      if (resData === Object) {
-        console.log("object: ", resData);
-      }
 
-      if (param.patId && resData) {
+      if (resData.length === undefined) {
         return [resData];
       }
+
       return resData;
     } catch (err) {
       console.log(err);

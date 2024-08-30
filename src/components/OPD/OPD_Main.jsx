@@ -6,14 +6,16 @@ import { useState } from "react";
 export default function OPD_Main() {
   const patientData = useLoaderData();
   const [selectedMedicines, setSelectedMedicines] = useState([]);
-  function handleCheckboxChange(event) {
-    const { name, checked } = event.target;
-    if (checked) {
-      setSelectedMedicines([...selectedMedicines, name]);
-    } else {
-      setSelectedMedicines(selectedMedicines.filter((item) => item !== name));
+  console.log(selectedMedicines);
+  function handleAddMedicine(event, val) {
+    const check = event.target.checked;
+    if (check) {
+      setSelectedMedicines((prevState) => {
+        return [...prevState, val];
+      });
     }
   }
+
   return (
     <div className={classes.opdWrapper}>
       <OPD_Header patData={patientData} />
@@ -23,10 +25,14 @@ export default function OPD_Main() {
           <div>
             <ul>
               {opdArr1.map((data) => (
-                <li key={data.id}>
-                  <input type="checkbox" value={data.value} />
+                <li key={data}>
+                  <input
+                    type="checkbox"
+                    value={data}
+                    onChange={(data) => handleAddMedicine(data)}
+                  />
                   &nbsp;
-                  {data.value}
+                  {data}
                 </li>
               ))}
             </ul>
@@ -88,15 +94,10 @@ export default function OPD_Main() {
           <div>
             <ul>
               {opdArr2.map((data) => (
-                <li key={data.id}>
-                  <input
-                    type="checkbox"
-                    name={data.value}
-                    checked={selectedMedicines.includes(data.value)}
-                    onChange={handleCheckboxChange}
-                  />
+                <li key={data}>
+                  <input type="checkbox" name={data} />
                   &nbsp;
-                  {data.value}
+                  {data}
                 </li>
               ))}
             </ul>

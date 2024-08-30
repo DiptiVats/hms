@@ -15,7 +15,7 @@ export async function tokenLoader() {
       },
     });
     console.log(response);
-    if (!response.ok) {
+    if (response.status === 400) {
       localStorage.removeItem("token");
       return redirect("/");
     }

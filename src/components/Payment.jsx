@@ -3,7 +3,6 @@ import { FaPrint } from "react-icons/fa";
 import classes from "./Payment.module.css";
 export default function Payment() {
   const paymentData = useLoaderData();
-  const navigation = useNavigation();
   return (
     <div>
       <div className={classes.topWrapper}>

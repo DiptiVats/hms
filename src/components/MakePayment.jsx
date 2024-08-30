@@ -118,7 +118,7 @@ export default function MakePayment() {
   );
 }
 
-export async function action() {}
+export async function loader() {}
 
 /*   
  "payPatId":78181,
