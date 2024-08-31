@@ -14,7 +14,10 @@ import IPD_Register from "./components/IPD_Register";
 import Payment, { loader as paymentFun } from "./components/Payment";
 import Reprint from "./components/Reprint";
 import "firebase/auth";
-import MakePayment from "./components/MakePayment";
+import MakePayment, {
+  loader as paymentLoader,
+  action as paymentAction,
+} from "./components/MakePayment";
 import Admit from "./components/Admit";
 import Consent from "./components/Consent";
 import OPD_Main from "./components/OPD/OPD_Main";
@@ -60,7 +63,12 @@ const router = createBrowserRouter([
         element: <OPD_Main />,
         loader: patientLoaderUtilFun,
       },
-      { path: "make-payment", element: <MakePayment />, loader: tokenLoader },
+      {
+        path: "make-payment",
+        element: <MakePayment />,
+        loader: paymentLoader,
+        action: paymentAction,
+      },
       { path: "consent", element: <Consent />, loader: tokenLoader },
     ],
   },

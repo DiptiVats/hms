@@ -70,7 +70,7 @@ export default function Patient() {
                     </Link>
                   </td>
                   <td>
-                    <Link to="/dashboard/make-payment">
+                    <Link to={`/dashboard/make-payment?patId=${data.tokenId}`}>
                       <button>Payment</button>
                     </Link>
                   </td>
@@ -112,11 +112,11 @@ export default function Patient() {
 export async function loader({ request }) {
   // checking if token is there
   const token = localStorage.getItem("token");
+  const CurrentUrl = new URL(request.url);
+  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
 
   if (token) {
     try {
-      const CurrentUrl = new URL(request.url);
-      const param = Object.fromEntries(CurrentUrl.searchParams.entries());
       console.log(param);
 
       // ------------- loading all the patient data ---------------------
@@ -135,6 +135,8 @@ export async function loader({ request }) {
         let dataToSend = { patId: param.patId };
         if (param.patId.length === 10) {
           dataToSend = { patTele: param.patId };
+        } else if (param.patId === String) {
+          console.log("string");
         }
         Url = `${url}/Patient/loadPatient`;
         fetchBlock = {
