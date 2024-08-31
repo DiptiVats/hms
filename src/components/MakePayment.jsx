@@ -25,7 +25,9 @@ export default function MakePayment() {
               <input
                 type="text"
                 style={{ width: "24rem", height: "1.3rem", color: "orange" }}
-                value={patientData.tokenId}
+                value={
+                  patientData ? `Patient Name :${patientData.name}` : "Null"
+                }
                 name="patId"
                 readOnly
               />
@@ -127,34 +129,41 @@ export default function MakePayment() {
       <p>
         <b>Today Payment Detail</b>
       </p>
-      <div className={classes.paymentDetailSection}>
-        <div>
+      {paymentData ? (
+        <div className={classes.paymentDetailSection}>
           <div>
             <div>
-              <b>Date</b>
+              <div>
+                <b>Date</b>
+              </div>
+              <p>{paymentData.payDateSelf}</p>
             </div>
-            <p>{paymentData.payDateSelf}</p>
-          </div>
-          <div>
             <div>
-              <b>Token</b>
+              <div>
+                <b>Token</b>
+              </div>
+              <p>{paymentData.payTokken}</p>
             </div>
-            <p>{paymentData.payTokken}</p>
-          </div>
-          <div>
             <div>
-              <b>Type</b>
+              <div>
+                <b>Type</b>
+              </div>
+              <p>{paymentData.payType}</p>
             </div>
-            <p>{paymentData.payType}</p>
-          </div>
-          <div>
             <div>
-              <b>Amount</b>
+              <div>
+                <b>Amount</b>
+              </div>
+              <p>{paymentData.payAmt}</p>
             </div>
-            <p>{paymentData.payAmt}</p>
           </div>
         </div>
-      </div>
+      ) : (
+        <center>
+          <hr color="grey" />
+          <p style={{ color: "red", fontSize: "1.2rem" }}>No payment yet</p>
+        </center>
+      )}
     </div>
   );
 }
@@ -199,8 +208,10 @@ export async function loader({ request }) {
 export async function action({ request }) {
   const token = localStorage.getItem("token");
   const data = await request.formData();
+  const CurrentUrl = new URL(request.url);
+  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
   const dataToSend = {
-    patId: data.get("patId"),
+    patId: param.patId,
     payAmt: data.get("payAmt"),
     payDate: new Date().toISOString(),
     payDateSelf: data.get("today"),
