@@ -66,6 +66,7 @@ export default function MakePayment() {
                 style={{ width: "24rem", height: "1.3rem", color: "orange" }}
                 value={new Date().toISOString().split("T")[0]}
                 name="today"
+                readOnly
               />
             </div>
             <div>
