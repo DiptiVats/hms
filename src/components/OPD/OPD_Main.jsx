@@ -6,17 +6,32 @@ import { useState } from "react";
 export default function OPD_Main() {
   const patientData = useLoaderData();
   console.log(opdArr1);
-  const [selectedMedicines, setSelectedMedicines] = useState([]);
-  console.log(selectedMedicines);
-  function handleAddMedicine(event, val) {
+  const [selectedNotes, setSelectedNotes] = useState([]);
+  const [selectedTreatment, setSelectedTreatment] = useState([]);
+
+  // -------------- function to Add Notes ------------------
+  function handleAddNotes(event, val) {
     console.log(val);
     const check = event.target.checked;
     if (check) {
-      setSelectedMedicines((prevState) => {
+      setSelectedNotes((prevState) => {
         return [...prevState, val];
       });
+    } else {
     }
   }
+  // -------------- function to Add Treatments ------------------
+  function handleAddTreatment(event, val) {
+    console.log(val);
+    const check = event.target.checked;
+    if (check) {
+      setSelectedTreatment((prevState) => {
+        return [...prevState, val];
+      });
+    } else {
+    }
+  }
+
   return (
     <div className={classes.opdWrapper}>
       <OPD_Header patData={patientData} />
@@ -31,7 +46,7 @@ export default function OPD_Main() {
                   <input
                     type="checkbox"
                     value={data}
-                    onClick={(event) => handleAddMedicine(event, data)}
+                    onClick={(event) => handleAddNotes(event, data)}
                   />
                   &nbsp;
                   {data}
@@ -72,24 +87,31 @@ export default function OPD_Main() {
               </div>
 
               <div>
-                <input
-                  type="text"
-                  placeholder="Notes"
-                  className={classes.inputSame}
-                />
-              </div>
-              <div>
+                <p style={{ lineHeight: 0, color: "orange" }}>Treatment</p>
                 <div
                   type="text"
                   placeholder="Treatment"
                   className={classes.inputSame}
-                  contentEditable
-                  style={{ lineHeight: 0 }}
-                  
-                />
-                {selectedMedicines.map((med) => (
-                  <p>{med}</p>
-                ))}
+                  style={{ lineHeight: 0, overflowY: "scroll" }}
+                >
+                  {selectedTreatment.map((med) => (
+                    <p style={{ lineHeight: "2px" }}>{med}</p>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p style={{ lineHeight: 0, color: "orange" }}>Notes</p>
+
+                <div
+                  type="text"
+                  placeholder="notes"
+                  className={classes.inputSame}
+                  style={{ lineHeight: 0, overflowY: "scroll" }}
+                >
+                  {selectedNotes.map((note) => (
+                    <p style={{ lineHeight: 0 }}>{note}</p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -102,7 +124,11 @@ export default function OPD_Main() {
             <ul>
               {opdArr2.map((data) => (
                 <li key={data}>
-                  <input type="checkbox" name={data} />
+                  <input
+                    type="checkbox"
+                    name={data}
+                    onClick={(event) => handleAddTreatment(event, data)}
+                  />
                   &nbsp;
                   {data}
                 </li>
