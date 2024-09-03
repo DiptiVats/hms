@@ -18,6 +18,7 @@ export default function OPD_Main() {
         return [...prevState, val];
       });
     } else {
+      setSelectedNotes((prevState) => prevState.filter((prev) => prev !== val));
     }
   }
   // -------------- function to Add Treatments ------------------
@@ -29,6 +30,9 @@ export default function OPD_Main() {
         return [...prevState, val];
       });
     } else {
+      setSelectedTreatment((prevState) =>
+        prevState.filter((prev) => prev !== val)
+      );
     }
   }
 
