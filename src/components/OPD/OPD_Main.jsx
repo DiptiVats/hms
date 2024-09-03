@@ -5,9 +5,11 @@ import { opdArr1, opdArr2 } from "./opdArray";
 import { useState } from "react";
 export default function OPD_Main() {
   const patientData = useLoaderData();
+  console.log(opdArr1);
   const [selectedMedicines, setSelectedMedicines] = useState([]);
   console.log(selectedMedicines);
   function handleAddMedicine(event, val) {
+    console.log(val);
     const check = event.target.checked;
     if (check) {
       setSelectedMedicines((prevState) => {
@@ -15,7 +17,6 @@ export default function OPD_Main() {
       });
     }
   }
-
   return (
     <div className={classes.opdWrapper}>
       <OPD_Header patData={patientData} />
@@ -24,12 +25,13 @@ export default function OPD_Main() {
           <p>Notes</p>
           <div>
             <ul>
+              {/* ------------------- OPD Treatment Data ---------------------  */}
               {opdArr1.map((data) => (
                 <li key={data}>
                   <input
                     type="checkbox"
                     value={data}
-                    onChange={(data) => handleAddMedicine(data)}
+                    onClick={(event) => handleAddMedicine(event, data)}
                   />
                   &nbsp;
                   {data}
@@ -77,18 +79,23 @@ export default function OPD_Main() {
                 />
               </div>
               <div>
-                <input
+                <div
                   type="text"
                   placeholder="Treatment"
                   className={classes.inputSame}
-                  value={selectedMedicines}
+                  contentEditable
+                  style={{ lineHeight: 0 }}
+                  
                 />
+                {selectedMedicines.map((med) => (
+                  <p>{med}</p>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* --------------------------------------------------------- */}
+        {/* -----------------------------  ---------------------------- */}
         <div className={classes.thirdWrapper}>
           <p>Treatment</p>
           <div>

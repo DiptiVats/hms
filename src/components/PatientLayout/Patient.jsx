@@ -2,13 +2,16 @@ import { FaEdit } from "react-icons/fa";
 import { SlExclamation } from "react-icons/sl";
 import classes from "./Patient.module.css";
 import AddPatientForm from "./AddPatientForm";
-import { Link, useLoaderData, useNavigation } from "react-router-dom";
+import { Form, Link, useLoaderData, useNavigation } from "react-router-dom";
 import { url } from "../../util/url";
 import { redirect } from "react-router-dom";
 export default function Patient() {
   const navigation = useNavigation();
-  const patientData = useLoaderData("patientData");
+  const patientData = useLoaderData();
   console.log(navigation.state === "loading");
+
+  //---------function to delete Patient -----------------------
+
   return (
     <div className={classes.patientDetail}>
       <div>
@@ -31,6 +34,7 @@ export default function Patient() {
               <td>OPD</td>
               <td>Payment</td>
               <td>Consent</td>
+              <td>Delete</td>
               <td>Edit</td>
             </tr>
           </thead>
@@ -49,6 +53,7 @@ export default function Patient() {
                     Adderss: {data.address} <br />
                     Telephone: {data.telephone}
                   </td>
+
                   <td>
                     {data.prevPaymentDetail ? (
                       <span>
@@ -78,6 +83,18 @@ export default function Patient() {
                     <Link to={`/dashboard/consent?patId=${data.tokenId}`}>
                       <button>Consent</button>
                     </Link>
+                  </td>
+                  <td>
+                    <Form action="post">
+                      <Link to={`?tokenId=${data.tokenId}`}>
+                        <button
+                          style={{ backgroundColor: "#E31246" }}
+                          type="submit"
+                        >
+                          delete
+                        </button>
+                      </Link>
+                    </Form>
                   </td>
                   <td>
                     <span>
@@ -153,7 +170,6 @@ export async function loader({ request }) {
         localStorage.removeItem("token");
         return redirect("/");
       }
-      console.log(response);
       const resData = await response.json();
       console.log(resData);
 
@@ -169,4 +185,24 @@ export async function loader({ request }) {
   } else {
     return redirect("/");
   }
+}
+
+export async function action({ request }) {
+  const CurrentUrl = new URL(request.url);
+  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
+  const token = localStorage.getItem("token");
+  console.log("true or not", isTure);
+  const response = await fetch(`${url}/Patient/deletePatient`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ patId: param.tokenId }),
+  });
+  console.log("delete response ", response);
+  console.log("patient deleted");
+  const resData = await response.json();
+  console.log(resData);
+  return resData;
 }

@@ -3,11 +3,7 @@ import { Link, redirect, useLoaderData } from "react-router-dom";
 import { Form } from "react-router-dom";
 import { url } from "../util/url";
 export default function MakePayment() {
-  const data = useLoaderData();
-  const patientData = data[0];
-  const paymentData = data[1];
-  console.log("data", data);
-
+  const { data1, data2 } = useLoaderData();
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapper_child}>
@@ -25,9 +21,7 @@ export default function MakePayment() {
               <input
                 type="text"
                 style={{ width: "24rem", height: "1.3rem", color: "orange" }}
-                value={
-                  patientData ? `Patient Name :${patientData.name}` : "Null"
-                }
+                value={data1.name}
                 name="patId"
                 readOnly
               />
@@ -130,32 +124,32 @@ export default function MakePayment() {
       <p>
         <b>Today Payment Detail</b>
       </p>
-      {paymentData ? (
+      {data2 ? (
         <div className={classes.paymentDetailSection}>
           <div>
             <div>
               <div>
                 <b>Date</b>
               </div>
-              <p>{paymentData.payDateSelf}</p>
+              <p>{data2.payDateSelf}</p>
             </div>
             <div>
               <div>
                 <b>Token</b>
               </div>
-              <p>{paymentData.payTokken}</p>
+              <p>{data2.payTokken}</p>
             </div>
             <div>
               <div>
                 <b>Type</b>
               </div>
-              <p>{paymentData.payType}</p>
+              <p>{data2.payType}</p>
             </div>
             <div>
               <div>
                 <b>Amount</b>
               </div>
-              <p>{paymentData.payAmt}</p>
+              <p>{data2.payAmt}</p>
             </div>
           </div>
         </div>
@@ -184,7 +178,10 @@ export async function loader({ request }) {
         },
         body: JSON.stringify({ patId: param.patId }),
       });
+
       const resData1 = await response1.json();
+      console.log("Name : ", resData1.name);
+
       // --------------------- for payment Data ------------------------
       const response2 = await fetch(`${url}/Payment/loadPayment`, {
         method: "POST",
@@ -194,9 +191,13 @@ export async function loader({ request }) {
         },
         body: JSON.stringify({ patId: param.patId }),
       });
+      const resData2 = await response2.text();
+      console.log("response : ", resData2);
 
-      const resData2 = await response2.json();
-      return [resData1, resData2];
+      if (resData2 === "null") {
+        console.log("is null");
+      }
+      return { data1: resData1, data2: JSON.parse(resData2) };
     } catch (err) {
       console.log(err);
       return err;
@@ -212,14 +213,15 @@ export async function action({ request }) {
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
   const dataToSend = {
-    patId: param.patId,
-    payAmt: data.get("payAmt"),
+    userId: "guest",
+    payPatId: param.patId,
+    payAmount: data.get("payAmt"),
     payDate: new Date().toISOString(),
     payDateSelf: data.get("today"),
     payType: data.get("payType"),
     payValidate: data.get("payValidate"),
   };
-  console.log(dataToSend);
+  console.log("data to Send : ", dataToSend);
   try {
     const response = await fetch(`${url}/Payment/registerPayment`, {
       method: "POST",
@@ -229,7 +231,6 @@ export async function action({ request }) {
       },
       body: JSON.stringify(dataToSend),
     });
-    console.log(response);
     return response;
   } catch (err) {
     console.log(err);

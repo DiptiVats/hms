@@ -4,6 +4,7 @@ import LoginPage, { action as loginFun } from "./pages/LoginPage";
 import DashBoardLayoutPage from "./pages/DashBoardLayoutPage";
 import Patient, {
   loader as patientLoaderFun,
+  action as deleteAction,
 } from "./components/PatientLayout/Patient";
 import AddPatient, { action as patientAddFun } from "./components/AddPatient";
 import Medicine, { loader as medicineListFun } from "./components/Medicine";
@@ -34,7 +35,12 @@ const router = createBrowserRouter([
     element: <DashBoardLayoutPage />,
     id: "patientData",
     children: [
-      { path: "", element: <Patient />, loader: patientLoaderFun },
+      {
+        path: "",
+        element: <Patient />,
+        loader: patientLoaderFun,
+        action: deleteAction,
+      },
       {
         path: "/dashboard/add-patient",
         element: <AddPatient />,
