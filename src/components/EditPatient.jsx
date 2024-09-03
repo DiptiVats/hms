@@ -46,7 +46,7 @@ export default function EditPatient() {
               type="radio"
               name="gender"
               id="male"
-              value="M"
+              value="m"
               className={classes.radioButton}
               defaultChecked={
                 patientDataToEdit.gender === "M" ||
@@ -60,7 +60,7 @@ export default function EditPatient() {
               type="radio"
               name="gender"
               id="female"
-              value="F"
+              value="f"
               className={classes.radioButton}
               defaultChecked={
                 patientDataToEdit.gender === "F" ||
