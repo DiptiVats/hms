@@ -54,3 +54,9 @@ td {
   color: grey;
   padding: 0.4rem 0.6rem;
 }
+.deleteButton:hover {
+  background-color: red;
+}
+.deleteButton:hover .deleteIcon {
+  font-size: 1.1rem;
+}

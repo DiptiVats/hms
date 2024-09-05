@@ -3,16 +3,19 @@ import classes from "./AddMedicine.module.css";
 import { url } from "../util/url";
 export default function AddMedicine() {
   const medData = useLoaderData();
-
+  const urlParams = new URLSearchParams(location.search);
+  const value = urlParams.get("medId");
   return (
     <div className={classes.mainWrapper}>
       <div>
-        <div className={classes.patientText}>Add Medicine</div>
+        <div className={classes.patientText}>
+          {value ? "Edit Medicine" : "Add Medicine"}
+        </div>
       </div>
       <div className={classes.hospitalName}>
         <Link to="/dashboard">Shri Krishna Hospital &nbsp;</Link> /&nbsp;
-        <Link to="/dashboard/medicine"> Medicines</Link>&nbsp; / &nbsp; Add
-        Medicine
+        <Link to="/dashboard/medicine"> Medicines</Link>&nbsp; / &nbsp;{" "}
+        {value ? "Edit Medicine" : "Add Medicine"}
       </div>
       {/* ---- first ----------*/}
       <Form method="post">

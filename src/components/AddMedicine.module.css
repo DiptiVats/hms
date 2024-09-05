@@ -32,13 +32,14 @@
   background-color: #22252a;
   padding: 0.4rem 0.6rem;
   border: 1px solid rgb(85, 85, 85);
-  color: grey;
+  color: rgb(173, 113, 0);
+
   font-size: 1rem;
   border-radius: 5px;
 }
 .firstGrid:active {
   outline: none;
-  color: orange;
+  color: rgb(173, 113, 0);
 }
 select[id="second"] {
   margin-left: 2rem;
@@ -57,7 +58,7 @@ select:focus {
   background-color: #22252a;
   padding: 0.4rem 0.6rem;
   border: 1px solid rgb(85, 85, 85);
-  color: grey;
+  color: rgb(173, 113, 0);
   font-size: 1rem;
   border-radius: 5px;
 }
@@ -81,6 +82,7 @@ input[id="sec"] {
   border: 1px solid rgb(83, 83, 83);
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
+  color: rgb(173, 113, 0);
 }
 .thirdGridElem {
   display: flex;
@@ -94,6 +96,8 @@ input[id="sec"] {
   justify-content: space-around;
 }
 .thirdGridElem > div > input {
+  color: rgb(173, 113, 0);
+
   width: 1rem;
 }
 .sixthGrid > button[type="button"] {

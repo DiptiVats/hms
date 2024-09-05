@@ -60,7 +60,8 @@ export default function Medicine() {
               <td>Long Desc</td>
               <td>Disp. Order</td>
               <td>Side</td>
-              <td>Action</td>
+              <td>edit</td>
+              <td>delete</td>
             </tr>
           </thead>
           <tbody>
@@ -72,18 +73,22 @@ export default function Medicine() {
                 <td>{data.shortDesc}</td>
                 <td>{data.longDesc}</td>
                 <td>{data.disOrder}</td>
-                <td>{data.medSide}</td>
-                <td style={{ display: "flex", flexDirection: "row" }}>
+                <td style={{ width: "4rem" }}>{data.medSide}</td>
+                <td>
                   <Link to={`/dashboard/add-medicine?medId=${data.medId}`}>
-                    <FaEdit style={{ color: "#007bff" }} />
+                    <button type="button">
+                      <FaEdit style={{ color: " white" }} />
+                    </button>
                   </Link>
-                  &nbsp; &nbsp;
+                </td>
+                <td>
                   <button
+                    className={classes.deleteButton}
                     style={{ width: "3rem" }}
                     type="submit"
                     onClick={() => DeletePatient(data)}
                   >
-                    <RiDeleteBin6Line style={{ color: "red" }} />
+                    <RiDeleteBin6Line className={classes.deleteIcon} />
                   </button>
                 </td>
               </tr>
