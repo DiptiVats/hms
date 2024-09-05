@@ -6,8 +6,7 @@ import { useState } from "react";
 import { url } from "../../util/url";
 import PopupLayout from "./PopupLayout";
 export default function OPD_Main() {
-  const patientData = useLoaderData();
-  console.log(patientData);
+  const { data1, data2 } = useLoaderData();
   const [selectedNotes, setSelectedNotes] = useState([]);
   const [selectedTreatment, setSelectedTreatment] = useState([]);
 
@@ -38,7 +37,7 @@ export default function OPD_Main() {
 
   return (
     <div className={classes.opdWrapper}>
-      <OPD_Header patData={patientData} />
+      <OPD_Header patData1={data1} patData2={data2} />
       <div className={classes.opdMainWrapper}>
         <div className={classes.firstWrapper}>
           <p>Notes</p>
@@ -158,6 +157,7 @@ export default function OPD_Main() {
         </p>
         <p>
           <PopupLayout
+            patData={data2}
             style={{
               width: "auto",
               backgroundColor: "#007bff",
@@ -176,9 +176,11 @@ export async function loader({ request }) {
   const token = localStorage.getItem("token");
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
+
+  // ----------- checking if token is there or not -----------------
   if (token) {
     try {
-      const response = await fetch(`${url}/Opd/loadPreviousNotes`, {
+      const response1 = await fetch(`${url}/Patient/loadPatient`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -186,13 +188,21 @@ export async function loader({ request }) {
         },
         body: JSON.stringify(param),
       });
-      if (response.status === 400) {
+      const resData1 = await response1.json();
+      const response2 = await fetch(`${url}/Opd/loadPreviousNotes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(param),
+      });
+      if (response1.status === 400) {
         localStorage.removeItem("token");
         return redirect("/");
       }
-      const resData = await response.json();
-      console.log(resData);
-      return resData;
+      const resData2 = await response2.json();
+      return { data1: resData1, data2: resData2 };
     } catch (err) {
       return err;
     }

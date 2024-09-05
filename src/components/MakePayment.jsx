@@ -167,7 +167,6 @@ export async function loader({ request }) {
   const token = localStorage.getItem("token");
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
-
   if (token) {
     try {
       const response1 = await fetch(`${url}/Patient/loadPatient`, {
@@ -178,10 +177,7 @@ export async function loader({ request }) {
         },
         body: JSON.stringify({ patId: param.patId }),
       });
-
       const resData1 = await response1.json();
-      console.log("Name : ", resData1.name);
-
       // --------------------- for payment Data ------------------------
       const response2 = await fetch(`${url}/Payment/loadPayment`, {
         method: "POST",
@@ -192,11 +188,6 @@ export async function loader({ request }) {
         body: JSON.stringify({ patId: param.patId }),
       });
       const resData2 = await response2.text();
-      console.log("response : ", resData2);
-
-      if (resData2 === "null") {
-        console.log("is null");
-      }
       return { data1: resData1, data2: JSON.parse(resData2) };
     } catch (err) {
       console.log(err);
@@ -221,7 +212,6 @@ export async function action({ request }) {
     payType: data.get("payType"),
     payValidate: data.get("payValidate"),
   };
-  console.log("data to Send : ", dataToSend);
   try {
     const response = await fetch(`${url}/Payment/registerPayment`, {
       method: "POST",
@@ -237,14 +227,3 @@ export async function action({ request }) {
     return err;
   }
 }
-
-/*   
- "payPatId":78181,
-  "payAmt": "500",
-  "payDate": "2024-08-06T14:30:00Z",
-  "payDateSelf": "2024-08-06",
-  "payTokken": "987654321",
-  "payType": "Credit Card",
-  "payValidate": "Valid",
-  "userId": "guest"
-   */

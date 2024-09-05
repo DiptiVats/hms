@@ -21,6 +21,7 @@ export default function Medicine() {
           });
           const resData = await response.json();
           console.log(resData);
+
           return redirect("/dashboard");
         }
       }
@@ -100,14 +101,8 @@ export default function Medicine() {
   );
 }
 
-export async function action({ request }) {
-  const CurrentUrl = new URL(request.url);
-  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
-}
-
 export async function loader() {
   const token = localStorage.getItem("token");
-  console.log(token);
   if (token) {
     try {
       const response = await fetch(`${url}/Medicine/loadAllMedicines`, {

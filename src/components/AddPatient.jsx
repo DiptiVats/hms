@@ -102,7 +102,6 @@ export async function action({ request }) {
     patNote: data.get("patNote"),
     timeStamp: new Date().toISOString(),
   };
-  console.log(dataToSend);
   try {
     const response = await fetch(`${url}/Patient/registerPatient`, {
       method: "POST",
@@ -116,12 +115,10 @@ export async function action({ request }) {
       localStorage.removeItem("token");
       return redirect("/");
     }
-    console.log(response);
 
     return redirect("/dashboard");
   } catch (err) {
     console.log(err);
   }
-  console.log(dataToSend);
   return dataToSend;
 }

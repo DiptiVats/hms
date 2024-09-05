@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { BsExclamationCircle } from "react-icons/bs";
 import classes from "./OPD_Header.module.css";
-export default function OPD_Header({ patData }) {
+export default function OPD_Header({ patData1, patData2 }) {
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapper_child}>
@@ -14,17 +13,11 @@ export default function OPD_Header({ patData }) {
         <div className={classes.wrapper_child_2}>
           <div>
             <p>
-              {patData.length === undefined
-                ? patData.opdPatFname
-                : patData[0].opdPatFname}
+              {patData1.name}
               &nbsp;|&nbsp;
-              {patData.length === undefined
-                ? patData.opdAge
-                : patData[0].opdAge}
+              {patData1.age}
               &nbsp;Yrs | &nbsp;
-              {patData.length === undefined
-                ? patData.opdSex === "m" || patData.opdSex === "M"
-                : patData[0].opdSex === "m" || patData[0].opdSex == "M"
+              {patData1.gender === "m" || patData1.gender === "M"
                 ? "Male"
                 : "Female"}
             </p>

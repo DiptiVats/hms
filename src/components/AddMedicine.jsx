@@ -111,7 +111,6 @@ export async function action({ request }) {
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
   const data = await request.formData();
-  console.log(param);
 
   const temData = {
     disOrder: data.get("displayOrder"),
@@ -165,7 +164,6 @@ export async function loader({ request }) {
         body: JSON.stringify(param),
       });
       const resData = await response.json();
-      console.log(resData);
       return resData;
     } else {
       return null;

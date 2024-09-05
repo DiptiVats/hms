@@ -8,7 +8,6 @@ import { redirect } from "react-router-dom";
 export default function Patient() {
   const navigation = useNavigation();
   const patientData = useLoaderData();
-  console.log(navigation.state === "loading");
 
   //---------function to delete Patient -----------------------
 
@@ -134,8 +133,6 @@ export async function loader({ request }) {
 
   if (token) {
     try {
-      console.log(param);
-
       // ------------- loading all the patient data ---------------------
       let Url = `${url}/Patient/loadAllPatient`;
       let fetchBlock = {
@@ -145,15 +142,12 @@ export async function loader({ request }) {
           Authorization: `Bearer ${token}`,
         },
       };
-      console.log(token);
 
       // ------------- loading patient data ---------------------
       if (param.patId) {
         let dataToSend = { patId: param.patId };
         if (param.patId.length === 10) {
           dataToSend = { patTele: param.patId };
-        } else if (param.patId === String) {
-          console.log("string");
         }
         Url = `${url}/Patient/loadPatient`;
         fetchBlock = {
@@ -171,7 +165,6 @@ export async function loader({ request }) {
         return redirect("/");
       }
       const resData = await response.json();
-      console.log(resData);
 
       if (resData.length === undefined) {
         return [resData];
@@ -191,7 +184,6 @@ export async function action({ request }) {
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
   const token = localStorage.getItem("token");
-  console.log("true or not", isTure);
   const response = await fetch(`${url}/Patient/deletePatient`, {
     method: "POST",
     headers: {
@@ -200,9 +192,6 @@ export async function action({ request }) {
     },
     body: JSON.stringify({ patId: param.tokenId }),
   });
-  console.log("delete response ", response);
-  console.log("patient deleted");
   const resData = await response.json();
-  console.log(resData);
   return resData;
 }

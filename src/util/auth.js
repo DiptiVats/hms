@@ -6,7 +6,6 @@ export function getAuthToken() {
 }
 export async function tokenLoader() {
   const token = localStorage.getItem("token");
-  console.log(token);
   if (token) {
     const response = await fetch(`${url}/Authentication/staticAuthentication`, {
       method: "POST",
@@ -14,7 +13,6 @@ export async function tokenLoader() {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     if (response.status === 400) {
       localStorage.removeItem("token");
       return redirect("/");
