@@ -98,7 +98,9 @@ export default function OPD_Main() {
                   style={{ lineHeight: 0, overflowY: "scroll" }}
                 >
                   {selectedTreatment.map((med) => (
-                    <p style={{ lineHeight: "2px" }}>{med}</p>
+                    <p key={med} style={{ lineHeight: "2px" }}>
+                      {med}
+                    </p>
                   ))}
                 </div>
               </div>
@@ -112,7 +114,9 @@ export default function OPD_Main() {
                   style={{ lineHeight: 0, overflowY: "scroll" }}
                 >
                   {selectedNotes.map((note) => (
-                    <p style={{ lineHeight: "2px" }}>{note}</p>
+                    <p key={note} style={{ lineHeight: "2px" }}>
+                      {note}
+                    </p>
                   ))}
                 </div>
               </div>
@@ -177,9 +181,10 @@ export async function loader({ request }) {
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
 
-  // ----------- checking if token is there or not -----------------
+  // ----------- checking if token is there or not ---------------------
   if (token) {
     try {
+      // ------------------- request to load single data ---------------------
       const response1 = await fetch(`${url}/Patient/loadPatient`, {
         method: "POST",
         headers: {
@@ -189,6 +194,7 @@ export async function loader({ request }) {
         body: JSON.stringify(param),
       });
       const resData1 = await response1.json();
+      // -------------------- request to load OPD details ----------------------
       const response2 = await fetch(`${url}/Opd/loadPreviousNotes`, {
         method: "POST",
         headers: {

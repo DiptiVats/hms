@@ -9,8 +9,7 @@ export default function PopupLayout({ patData }) {
   function closeModal() {
     dialogRef.current.close();
   }
-  const data = patData[0].opdNote.split("\n");
-  console.log(data);
+
   return (
     <>
       {/* ------------ dialog section -------------------- */}
@@ -20,17 +19,19 @@ export default function PopupLayout({ patData }) {
             patData.map((data, index) => (
               <div key={[index]}>
                 {data.opdNote.split("\n").map((arr) => (
-                  <p>{arr}</p>
+                  <>
+                    <p>{arr}</p>
+                  </>
                 ))}
               </div>
             ))}
-          {patData && <p>Not Previous notes</p>}
+          {!patData && <p>There is no previous note !</p>}
         </div>
         <br />
         <br />
 
         <button onClick={closeModal} style={{ float: "right" }}>
-          close
+          Close
         </button>
       </dialog>
       {/* ------------ button section -------------------- */}

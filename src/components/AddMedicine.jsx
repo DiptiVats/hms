@@ -111,7 +111,7 @@ export async function action({ request }) {
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
   const data = await request.formData();
-
+  const token = localStorage.getItem("token");
   const temData = {
     disOrder: data.get("displayOrder"),
     longDesc: data.get("medicineLongDesc"),
@@ -137,6 +137,7 @@ export async function action({ request }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(dataToSend),
   });

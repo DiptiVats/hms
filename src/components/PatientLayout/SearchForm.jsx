@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import classes from "./AddPatientForm.module.css";
-export default function AddPatientForm() {
+import classes from "./SearchForm.module.css";
+export default function AddPatientForm({ text }) {
   return (
     <div className={classes.formWrapper}>
       <div className={classes.topWrapper}>
@@ -21,7 +21,7 @@ export default function AddPatientForm() {
           <input
             name="patId"
             type="text"
-            placeholder="Enter Code to search patient"
+            placeholder={text}
             className={classes.inputField}
             required
           />

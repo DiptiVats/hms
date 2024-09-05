@@ -1,20 +1,18 @@
 import { FaEdit } from "react-icons/fa";
 import { SlExclamation } from "react-icons/sl";
 import classes from "./Patient.module.css";
-import AddPatientForm from "./AddPatientForm";
+import SearchForm from "./SearchForm";
 import { Form, Link, useLoaderData, useNavigation } from "react-router-dom";
 import { url } from "../../util/url";
 import { redirect } from "react-router-dom";
 export default function Patient() {
-  const navigation = useNavigation();
   const patientData = useLoaderData();
 
   //---------function to delete Patient -----------------------
-
   return (
     <div className={classes.patientDetail}>
       <div>
-        <AddPatientForm />
+        <SearchForm text="Enter Patient Id / Contect No." />
       </div>
       <div className={classes.patientTable}>
         &nbsp; &nbsp; &nbsp;
@@ -113,7 +111,7 @@ export default function Patient() {
                     borderTopWidth: "2rem",
                     backgroundColor: "#22252a",
                   }}
-                  colSpan={9}
+                  colSpan={10}
                 >
                   No Records!
                 </th>
