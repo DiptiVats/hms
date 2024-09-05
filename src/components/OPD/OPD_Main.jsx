@@ -157,7 +157,7 @@ export default function OPD_Main() {
           <button style={{ backgroundColor: "#007bff" }}>Ok</button>
         </p>
         <p>
-          <button
+          <PopupLayout
             style={{
               width: "auto",
               backgroundColor: "#007bff",
@@ -165,10 +165,9 @@ export default function OPD_Main() {
             }}
           >
             Previous Notes
-          </button>
+          </PopupLayout>
         </p>
       </div>
-      <PopupLayout patData={patientData} />
     </div>
   );
 }
