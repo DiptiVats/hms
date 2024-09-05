@@ -9,19 +9,20 @@ export default function Medicine() {
   async function DeletePatient(medicine) {
     try {
       const token = localStorage.getItem("token");
-
       if (token) {
-        const response = await fetch(`${url}/Medicine/deleteMedicine`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ medId: medicine.medId }),
-        });
-        const resData = await response.json();
-        console.log(resData);
-        return redirect("/dashboard");
+        if (window.confirm("Are you really want to delete the medicine ")) {
+          const response = await fetch(`${url}/Medicine/deleteMedicine`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ medId: medicine.medId }),
+          });
+          const resData = await response.json();
+          console.log(resData);
+          return redirect("/dashboard");
+        }
       }
       return redirect("/");
     } catch (err) {
