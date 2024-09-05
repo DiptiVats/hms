@@ -14,13 +14,20 @@ export default function OPD_Header({ patData }) {
         <div className={classes.wrapper_child_2}>
           <div>
             <p>
-              {patData.name} | {patData.age} Yrs |
-              {patData.gender === "m" ? "Male" : "Female"}
+              {patData.length === undefined
+                ? patData.opdPatFname
+                : patData[0].opdPatFname}
+              &nbsp;|&nbsp;
+              {patData.length === undefined
+                ? patData.opdAge
+                : patData[0].opdAge}
+              &nbsp;Yrs | &nbsp;
+              {patData.length === undefined
+                ? patData.opdSex === "m" || patData.opdSex === "M"
+                : patData[0].opdSex === "m" || patData[0].opdSex == "M"
+                ? "Male"
+                : "Female"}
             </p>
-            <div>
-              Previous Notes
-              <BsExclamationCircle style={{ color: "#007bff" }} />
-            </div>
           </div>
         </div>
       </div>

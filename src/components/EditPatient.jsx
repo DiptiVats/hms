@@ -29,7 +29,6 @@ export default function EditPatient() {
             name="secondName"
             placeholder="Last Name*"
             defaultValue={patientDataToEdit.lname}
-            required
           />
         </div>
         {/* --------------------- second grid ----------------*/}

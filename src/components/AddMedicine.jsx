@@ -77,7 +77,8 @@ export default function AddMedicine() {
 }
 
 export async function action({ request }) {
-  const data = await request.formData();
+  const CurrentUrl = new URL(request.url);
+
   const dataToSend = {
     disOrder: data.get("displayOrder"),
     longDesc: data.get("medicineLongDesc"),
@@ -99,4 +100,28 @@ export async function action({ request }) {
     return redirect("/");
   }
   return response.json(), redirect("/dashboard/medicine");
+}
+
+export async function loader({ request }) {
+  const CurrentUrl = new URL(request.url);
+  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
+  const token = localStorage.getItem("token");
+  console.log("param :", param);
+  if (token) {
+    if (param.medId) {
+      const response = await fetch(`${url}/Medicine/updateMedicine`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(param),
+      });
+      const resData = await response.json();
+      console.log(resData);
+      return resData;
+    }
+  }
+  localStorage.removeItem("token");
+  return redirect("/");
 }

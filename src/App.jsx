@@ -10,6 +10,7 @@ import AddPatient, { action as patientAddFun } from "./components/AddPatient";
 import Medicine, { loader as medicineListFun } from "./components/Medicine";
 import AddMedicine, {
   action as addMedicineFun,
+  loader as getMedicineData,
 } from "./components/AddMedicine";
 import IPD_Register from "./components/IPD_Register";
 import Payment, { loader as paymentFun } from "./components/Payment";
@@ -21,7 +22,9 @@ import MakePayment, {
 } from "./components/MakePayment";
 import Admit from "./components/Admit";
 import Consent from "./components/Consent";
-import OPD_Main from "./components/OPD/OPD_Main";
+import OPD_Main, {
+  loader as OpdContentLoader,
+} from "./components/OPD/OPD_Main";
 import EditPatient, {
   action as editPatientFun,
 } from "./components/EditPatient";
@@ -58,7 +61,7 @@ const router = createBrowserRouter([
         path: "/dashboard/add-medicine",
         element: <AddMedicine />,
         action: addMedicineFun,
-        loader: tokenLoader,
+        loader: getMedicineData,
       },
       { path: "ipd-register", element: <IPD_Register />, loader: tokenLoader },
       { path: "payment-register", element: <Payment />, loader: paymentFun },
@@ -67,7 +70,7 @@ const router = createBrowserRouter([
       {
         path: "OPD",
         element: <OPD_Main />,
-        loader: patientLoaderUtilFun,
+        loader: OpdContentLoader,
       },
       {
         path: "make-payment",

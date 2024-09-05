@@ -58,10 +58,14 @@ export default function Medicine() {
                   <td>{data.longDesc}</td>
                   <td>{data.disOrder}</td>
                   <td>{data.medSide}</td>
-                  <td>
-                    <FaEdit style={{ color: "#007bff" }} />
+                  <td sty>
+                    <Link to={`/dashboard/add-medicine?medId=${data.medId}`}>
+                      <FaEdit style={{ color: "#007bff" }} />
+                    </Link>
                     &nbsp; &nbsp;
-                    <RiDeleteBin6Line style={{ color: "red" }} />
+                    <button style={{ width: "3rem" }}>
+                      <RiDeleteBin6Line style={{ color: "red" }} />
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -71,6 +75,11 @@ export default function Medicine() {
       )}
     </div>
   );
+}
+
+export async function action() {
+  const CurrentUrl = new URL(request.url);
+  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
 }
 
 export async function loader() {
