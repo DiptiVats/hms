@@ -7,7 +7,10 @@ import Patient, {
   action as deleteAction,
 } from "./components/PatientLayout/Patient";
 import AddPatient, { action as patientAddFun } from "./components/AddPatient";
-import Medicine, { loader as medicineListFun } from "./components/Medicine";
+import Medicine, {
+  loader as medicineListFun,
+  action as deleteMedicine,
+} from "./components/Medicine";
 import AddMedicine, {
   action as addMedicineFun,
   loader as getMedicineData,
@@ -56,7 +59,11 @@ const router = createBrowserRouter([
         action: editPatientFun,
         loader: patientLoaderUtilFun,
       },
-      { path: "medicine", element: <Medicine />, loader: medicineListFun },
+      {
+        path: "medicine",
+        element: <Medicine />,
+        loader: medicineListFun,
+      },
       {
         path: "/dashboard/add-medicine",
         element: <AddMedicine />,

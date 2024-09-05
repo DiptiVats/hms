@@ -1,7 +1,9 @@
-import { Link, Form, redirect } from "react-router-dom";
+import { Link, Form, redirect, useLoaderData } from "react-router-dom";
 import classes from "./AddMedicine.module.css";
 import { url } from "../util/url";
 export default function AddMedicine() {
+  const medData = useLoaderData();
+
   return (
     <div className={classes.mainWrapper}>
       <div>
@@ -16,17 +18,30 @@ export default function AddMedicine() {
       <Form method="post">
         <div method="post" className={classes.firstGrid}>
           <select name="medicineCode">
-            <option>Select Medicine Code</option>
-            <option>O123</option>
-            <option>AB234</option>
-            <option>ABC345</option>
+            <option selected={!medData}>Select Medicine Code</option>
+            <option selected={medData && medData.medCode === "I001"}>
+              I001
+            </option>
+            <option selected={medData && medData.medCode === "TR001"}>
+              TR001
+            </option>
+            <option selected={medData && medData.medCode === "TB001"}>
+              TB001
+            </option>
+            <option selected={medData && medData.medCode === "OL001"}>
+              OL001
+            </option>
+            <option selected={medData && medData.medCode === "SR001"}>
+              SR001
+            </option>
           </select>
           <select id="second" name="medicineCatagory">
             <option>Select Medicine Catagory</option>
-            <option>NJ</option>
-            <option>OL</option>
-            <option>SR</option>
-            <option>TB</option>
+            <option selected={medData && medData.medCat === "Inj"}>Inj</option>
+            <option selected={medData && medData.medCat === "TB"}>TB</option>
+            <option selected={medData && medData.medCat === "TR"}>TR</option>
+            <option selected={medData && medData.medCat === "OL"}>OL</option>
+            <option selected={medData && medData.medCat === "SR"}>SR</option>
           </select>
         </div>
         {/* ---- first ----------*/}
@@ -35,12 +50,14 @@ export default function AddMedicine() {
             type="text"
             name="medicineShortDesc"
             placeholder="Medicine Short Desc."
+            defaultValue={medData ? medData.shortDesc : null}
           ></input>
           <input
             type="text"
             id="sec"
             name="displayOrder"
             placeholder="Medicine Display Order"
+            defaultValue={medData ? medData.disOrder : null}
           ></input>
         </div>
         <div className={classes.thirdGrid}>
@@ -49,17 +66,28 @@ export default function AddMedicine() {
               type="text"
               name="medicineLongDesc"
               placeholder="Medicine Long Desc."
+              defaultValue={medData ? medData.longDesc : null}
             />
           </div>
 
           <div className={classes.thirdGridElem}>
             <p>Medicine Display Side:</p>&nbsp;&nbsp;
             <div>
-              <input type="radio" name="direction" value="right" />{" "}
+              <input
+                type="radio"
+                name="direction"
+                value="right"
+                defaultChecked={medData && medData.medSide === "right"}
+              />
               Right&nbsp;&nbsp;
             </div>
             <div>
-              <input type="radio" name="direction" value="left" />
+              <input
+                type="radio"
+                name="direction"
+                value="left"
+                defaultChecked={medData && medData.medSide === "left"}
+              />
               Left &nbsp;
             </div>
           </div>
@@ -78,8 +106,11 @@ export default function AddMedicine() {
 
 export async function action({ request }) {
   const CurrentUrl = new URL(request.url);
+  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
+  const data = await request.formData();
+  console.log(param);
 
-  const dataToSend = {
+  const temData = {
     disOrder: data.get("displayOrder"),
     longDesc: data.get("medicineLongDesc"),
     medCat: data.get("medicineCatagory"),
@@ -87,8 +118,20 @@ export async function action({ request }) {
     medSide: data.get("direction"),
     shortDesc: data.get("medicineShortDesc"),
   };
-  console.log(dataToSend);
-  const response = await fetch(`${url}/Medicine/addMedicine`, {
+  let dataToSend = {
+    ...temData,
+  };
+  let medUrl = `${url}/Medicine/addMedicine`;
+  // ----------------------------- updating the url and data if user wants to edit the medicine-------------------
+  if (param.medId) {
+    dataToSend = {
+      ...temData,
+      medId: param.medId,
+    };
+    medUrl = `${url}/Medicine/updateMedicine`;
+  }
+
+  const response = await fetch(medUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -102,14 +145,15 @@ export async function action({ request }) {
   return response.json(), redirect("/dashboard/medicine");
 }
 
+// ------------------ Medicine Loader Function --------------------------------
+
 export async function loader({ request }) {
   const CurrentUrl = new URL(request.url);
   const param = Object.fromEntries(CurrentUrl.searchParams.entries());
   const token = localStorage.getItem("token");
-  console.log("param :", param);
   if (token) {
     if (param.medId) {
-      const response = await fetch(`${url}/Medicine/updateMedicine`, {
+      const response = await fetch(`${url}/Medicine/loadMedicine`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,6 +164,8 @@ export async function loader({ request }) {
       const resData = await response.json();
       console.log(resData);
       return resData;
+    } else {
+      return null;
     }
   }
   localStorage.removeItem("token");

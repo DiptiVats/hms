@@ -35,7 +35,7 @@ export default function Patient() {
               <td>Payment</td>
               <td>Consent</td>
               <td>Delete</td>
-              <td>Edit</td>
+              <td>edit</td>
             </tr>
           </thead>
           <tbody>
