@@ -167,7 +167,6 @@ export async function loader({ request }) {
       if (resData.length === undefined) {
         return [resData];
       }
-
       return resData;
     } catch (err) {
       console.log(err);

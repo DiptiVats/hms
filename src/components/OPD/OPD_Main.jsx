@@ -4,7 +4,9 @@ import { Link, redirect, useLoaderData } from "react-router-dom";
 import { opdArr1, opdArr2 } from "./opdArray";
 import { useState } from "react";
 import { url } from "../../util/url";
-import PopupLayout from "./PopupLayout";
+import PopupLayout from "./PopupForCanva";
+import PopupForNotes from "./PopupForNotes";
+import CanvaForDrawing from "../PopUp/CanvaForDrawing";
 export default function OPD_Main() {
   const { data1, data2 } = useLoaderData();
   const [selectedNotes, setSelectedNotes] = useState([]);
@@ -154,22 +156,38 @@ export default function OPD_Main() {
           <button style={{ backgroundColor: "#2ea5c9" }}>Show Notes</button>
         </p>
         <p>
-          <button style={{ backgroundColor: "#2ea5c9" }}>Enter Note</button>
+          <PopupLayout patData={data2} buttonVal="Enter note">
+            <div
+              style={{
+                backgroundColor: "transparent",
+              }}
+            >
+              <CanvaForDrawing />
+            </div>
+          </PopupLayout>
         </p>
         <p>
           <button style={{ backgroundColor: "#007bff" }}>Ok</button>
         </p>
         <p>
-          <PopupLayout
-            patData={data2}
-            style={{
-              width: "auto",
-              backgroundColor: "#007bff",
-              fontSize: "0.9rem",
-            }}
-          >
-            Previous Notes
-          </PopupLayout>
+          {/* ------------------- popup for opd previous note ----------------------- */}
+          <PopupForNotes>
+            <div style={{ overflowY: "scroll", lineHeight: 0, color: "black" }}>
+              {data2 ? (
+                data2.map((data, index) => (
+                  <div key={[index]}>
+                    {data.opdNote.split("\n").map((arr) => (
+                      <>
+                        <p>{arr}</p>
+                      </>
+                    ))}
+                  </div>
+                ))
+              ) : (
+                <p style={{ color: "black" }}>There is no previous note !</p>
+              )}
+            </div>
+          </PopupForNotes>
         </p>
       </div>
     </div>

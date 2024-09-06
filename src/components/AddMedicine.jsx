@@ -97,7 +97,7 @@ export default function AddMedicine() {
           <br />
         </div>
         <div className={classes.sixthGrid}>
-          <Link to="..">
+          <Link to="/dashboard/medicine">
             <button type="button">Cancel</button>
           </Link>
           <button type="submit">Add Medicine</button>

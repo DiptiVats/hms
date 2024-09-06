@@ -10,10 +10,11 @@ export async function tokenLoader() {
     const response = await fetch(`${url}/Authentication/staticAuthentication`, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    if (response.status === 400) {
+    if (response.status === 400 || response.status === 503) {
       localStorage.removeItem("token");
       return redirect("/");
     }

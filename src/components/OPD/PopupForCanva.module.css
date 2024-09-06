@@ -1,0 +1,13 @@
+.myDialog {
+  background-color: transparent;
+  border: none;
+  width: 60rem;
+  height: 30rem;
+}
+.myDialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+}
+
+.myDialog * {
+  line-height: 0;
+}

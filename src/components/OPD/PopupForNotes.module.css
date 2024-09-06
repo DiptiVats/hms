@@ -1,0 +1,10 @@
+.popup {
+  width: 37rem;
+  height: 20rem;
+  border: none;
+  background-color: rgb(209, 209, 209);
+}
+
+.popup::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}

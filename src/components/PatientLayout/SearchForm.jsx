@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import classes from "./SearchForm.module.css";
-export default function AddPatientForm({ text }) {
+export default function AddPatientForm({ text, patData }) {
   return (
     <div className={classes.formWrapper}>
       <div className={classes.topWrapper}>
@@ -27,9 +27,7 @@ export default function AddPatientForm({ text }) {
           />
         </div>
         <div>
-          <button className={classes.searchButton} type="submit">
-            Search
-          </button>
+          <button className={classes.searchButton}>Search</button>
         </div>
         <div>
           <Link to="/dashboard">
