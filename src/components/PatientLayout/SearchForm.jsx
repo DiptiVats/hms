@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import classes from "./SearchForm.module.css";
-export default function AddPatientForm({ text, patData }) {
+export default function AddPatientForm({ text }) {
   return (
     <div className={classes.formWrapper}>
       <div className={classes.topWrapper}>

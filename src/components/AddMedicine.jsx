@@ -54,13 +54,15 @@ export default function AddMedicine() {
             name="medicineShortDesc"
             placeholder="Medicine Short Desc."
             defaultValue={medData ? medData.shortDesc : null}
+            required
           ></input>
           <input
-            type="text"
+            type="number"
             id="sec"
             name="displayOrder"
             placeholder="Medicine Display Order"
             defaultValue={medData ? medData.disOrder : null}
+            required
           ></input>
         </div>
         <div className={classes.thirdGrid}>
@@ -70,6 +72,7 @@ export default function AddMedicine() {
               name="medicineLongDesc"
               placeholder="Medicine Long Desc."
               defaultValue={medData ? medData.longDesc : null}
+              required
             />
           </div>
 
@@ -81,6 +84,7 @@ export default function AddMedicine() {
                 name="direction"
                 value="right"
                 defaultChecked={medData && medData.medSide === "right"}
+                required
               />
               Right&nbsp;&nbsp;
             </div>
@@ -90,6 +94,7 @@ export default function AddMedicine() {
                 name="direction"
                 value="left"
                 defaultChecked={medData && medData.medSide === "left"}
+                required
               />
               Left &nbsp;
             </div>
@@ -132,7 +137,6 @@ export async function action({ request }) {
     };
     medUrl = `${url}/Medicine/updateMedicine`;
   }
-
   const response = await fetch(medUrl, {
     method: "POST",
     headers: {
@@ -141,6 +145,7 @@ export async function action({ request }) {
     },
     body: JSON.stringify(dataToSend),
   });
+
   if (response.status === 400) {
     localStorage.removeItem("token");
     return redirect("/");

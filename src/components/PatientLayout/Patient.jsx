@@ -2,7 +2,7 @@ import { FaEdit } from "react-icons/fa";
 import { SlExclamation } from "react-icons/sl";
 import classes from "./Patient.module.css";
 import SearchForm from "./SearchForm";
-import { Form, Link, useLoaderData, useNavigation } from "react-router-dom";
+import { Form, Link, useLoaderData } from "react-router-dom";
 import { url } from "../../util/url";
 import { redirect } from "react-router-dom";
 export default function Patient() {
@@ -22,6 +22,7 @@ export default function Patient() {
             <tr>
               <td>Sr No.</td>
               <td>Code</td>
+              <td> Token</td>
               <td>Patient Detail</td>
               <td>
                 Privious Payment
@@ -41,6 +42,7 @@ export default function Patient() {
                 <tr key={data.tokenId}>
                   <td>{[index + 1]}</td>
                   <td>{data.tokenId}</td>
+                  <td>{data.paymentToken}</td>
                   <td>
                     {data.name} | {data.age} Yrs |{" "}
                     {data.gender === "M" || data.gender === "m"
@@ -158,12 +160,13 @@ export async function loader({ request }) {
         };
       }
       const response = await fetch(Url, fetchBlock);
-      if (response.status === 400) {
+      console.log(response);
+      if (response.status === 400 || response.status === 403) {
         localStorage.removeItem("token");
         return redirect("/");
       }
       const resData = await response.json();
-
+      console.log(resData);
       if (resData.length === undefined) {
         return [resData];
       }

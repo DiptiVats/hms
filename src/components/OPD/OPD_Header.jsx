@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import classes from "./OPD_Header.module.css";
-export default function OPD_Header({ patData1, patData2 }) {
+export default function OPD_Header({ patData1 }) {
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapper_child}>
@@ -39,7 +39,7 @@ export default function OPD_Header({ patData1, patData2 }) {
         <div className={classes.wrapper_child_input}>
           <p>Attendance</p>
           <div>
-            <input type="date" className={classes.sameInp} />
+            <input type="text" className={classes.sameInp} value={new Date()} />
           </div>
         </div>
         <div className={classes.wrapper_child_input}>

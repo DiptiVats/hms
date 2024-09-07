@@ -1,11 +1,11 @@
-import { Link, redirect, useLoaderData } from "react-router-dom";
+import { Link, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import classes from "./Medicine.module.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { url } from "../util/url";
 export default function Medicine() {
   const medicineList = useLoaderData();
-
+  const navigate = useNavigate();
   async function DeletePatient(medicine) {
     try {
       const token = localStorage.getItem("token");
@@ -20,9 +20,8 @@ export default function Medicine() {
             body: JSON.stringify({ medId: medicine.medId }),
           });
           const resData = await response.json();
+          navigate("/dashboard/medicine");
           console.log(resData);
-
-          return redirect("/dashboard");
         }
       }
       return redirect("/");

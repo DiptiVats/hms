@@ -11,10 +11,15 @@ export default function OPD_Main() {
   const { data1, data2 } = useLoaderData();
   const [selectedNotes, setSelectedNotes] = useState([]);
   const [selectedTreatment, setSelectedTreatment] = useState([]);
+  const [day, setDay] = useState("");
 
+  function handleDay(event) {
+    setDay(event.target.value);
+  }
   // -------------- function to Add Notes ------------------
   function handleAddNotes(event, val) {
     const check = event.target.checked;
+
     if (check) {
       setSelectedNotes((prevState) => {
         return [...prevState, val];
@@ -36,7 +41,6 @@ export default function OPD_Main() {
       );
     }
   }
-
   return (
     <div className={classes.opdWrapper}>
       <OPD_Header patData1={data1} patData2={data2} />
@@ -73,11 +77,11 @@ export default function OPD_Main() {
               </div>
 
               <div>
-                <select>
-                  <option>Day</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
+                <select value={day} onChange={handleDay}>
+                  <option value="">Day</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
                 </select>
               </div>
             </div>
@@ -108,7 +112,6 @@ export default function OPD_Main() {
               </div>
               <div>
                 <p style={{ lineHeight: 0, color: "orange" }}>Notes</p>
-
                 <div
                   type="text"
                   placeholder="notes"
@@ -116,9 +119,9 @@ export default function OPD_Main() {
                   style={{ lineHeight: 0, overflowY: "scroll" }}
                 >
                   {selectedNotes.map((note) => (
-                    <p key={note} style={{ lineHeight: "2px" }}>
-                      {note}
-                    </p>
+                    <div key={note} style={{ lineHeight: "2px" }}>
+                      {note} {day && ` x ${day}`}
+                    </div>
                   ))}
                 </div>
               </div>
@@ -177,9 +180,7 @@ export default function OPD_Main() {
                 data2.map((data, index) => (
                   <div key={[index]}>
                     {data.opdNote.split("\n").map((arr) => (
-                      <>
-                        <p>{arr}</p>
-                      </>
+                      <p>{arr}</p>
                     ))}
                   </div>
                 ))
