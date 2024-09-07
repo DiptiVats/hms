@@ -145,10 +145,17 @@ export async function loader({ request }) {
 
       // ------------- loading patient data ---------------------
       if (param.patId) {
-        let dataToSend = { patId: param.patId };
-        if (param.patId.length === 10) {
-          dataToSend = { patTele: param.patId };
+        let dataToSend = {};
+        if (typeof param.patId === "string" && !isNaN(Number(param.patId))) {
+          if (param.patId.length === 10) {
+            dataToSend = { patTele: param.patId };
+          } else {
+            dataToSend = { patId: param.patId };
+          }
+        } else {
+          dataToSend = { patName: param.patId };
         }
+        console.log(dataToSend);
         Url = `${url}/Patient/loadPatient`;
         fetchBlock = {
           method: "POST",
