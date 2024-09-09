@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import classes from "./SearchForm.module.css";
+import { FiSearch } from "react-icons/fi";
+import { IoMdPersonAdd } from "react-icons/io";
 export default function AddPatientForm({ text }) {
   return (
     <div className={classes.formWrapper}>
@@ -8,7 +10,10 @@ export default function AddPatientForm({ text }) {
         <div style={{ flexGrow: 2 }}></div>
         <div>
           <Link to="add-patient">
-            <button className={classes.roundedButton}>New Patient</button>
+            <button className={classes.roundedButton}>
+              <IoMdPersonAdd />
+              &nbsp; New Patient
+            </button>
           </Link>
         </div>
       </div>
@@ -27,7 +32,10 @@ export default function AddPatientForm({ text }) {
           />
         </div>
         <div>
-          <button className={classes.searchButton}>Search</button>
+          <button className={classes.searchButton}>
+            Search &nbsp;
+            <FiSearch />
+          </button>
         </div>
         <div>
           <Link to="/dashboard">

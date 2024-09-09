@@ -43,10 +43,10 @@
   border-radius: 4px;
   height: 1.2rem;
   background-color: #22252a;
-  color: grey;
+  color: rgb(173, 113, 0);
 }
 .firstGrid > div > input:focus {
-  color: orange;
+  color: rgb(173, 113, 0);
 }
 .secondGrid {
   display: flex;
@@ -79,7 +79,8 @@
   height: 1.2rem;
   width: 90%;
   background-color: #22252a;
-  color: grey;
+  color: rgb(173, 113, 0);
+
   margin-top: -15px;
 }
 .secondPart > div > input {
@@ -103,7 +104,7 @@
   height: 1.2rem;
   width: 93.5%;
   background-color: #22252a;
-  color: grey;
+  color: rgb(173, 113, 0);
 }
 .thirdGrid {
   margin-top: -1px;
@@ -118,7 +119,7 @@
   border-radius: 4px;
   height: 1.2rem;
   background-color: #22252a;
-  color: grey;
+  color: rgb(173, 113, 0);
 }
 input:focus {
   border-color: grey;
@@ -139,6 +140,8 @@ input:focus {
 .fourthGridElem1 > input,
 .fourthGridElem2 > input {
   width: 95%;
+  color: rgb(173, 113, 0);
+
   height: 6rem;
   margin-top: -15px;
   background-color: #22252a;
@@ -153,10 +156,11 @@ input:focus {
   height: 6rem;
   background-color: #22252a;
   border: 1px solid rgb(87, 87, 87);
+  color: rgb(173, 113, 0);
   margin-top: -15px;
 }
 .fifthGrid > p {
-  color: rgb(165, 165, 165);
+  color: rgb(163, 163, 163);
 }
 .sixthGrid > button[type="button"] {
   color: white;

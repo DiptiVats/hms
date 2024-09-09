@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-
 const Canvas = () => {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -59,8 +58,9 @@ const Canvas = () => {
         style={{
           position: "absolute",
           bottom: "1rem",
-          right: "7rem",
-          backgroundColor: "blue",
+          right: "12.4rem",
+
+          backgroundColor: "red",
         }}
       >
         clear

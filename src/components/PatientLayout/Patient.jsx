@@ -3,6 +3,8 @@ import { SlExclamation } from "react-icons/sl";
 import classes from "./Patient.module.css";
 import SearchForm from "./SearchForm";
 import { Form, Link, useLoaderData } from "react-router-dom";
+import { MdCurrencyRupee } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 import { url } from "../../util/url";
 import { redirect } from "react-router-dom";
 export default function Patient() {
@@ -12,7 +14,7 @@ export default function Patient() {
   return (
     <div className={classes.patientDetail}>
       <div>
-        <SearchForm text="Enter Patient Id / Contect No." />
+        <SearchForm text="Search By Patient Id / Contect No. / Patient Name" />
       </div>
       <div className={classes.patientTable}>
         &nbsp; &nbsp; &nbsp;
@@ -25,7 +27,7 @@ export default function Patient() {
               <td> Token</td>
               <td>Patient Detail</td>
               <td>
-                Privious Payment
+                Previous Payment
                 <br /> Detail
               </td>
               <td>Admit</td>
@@ -75,7 +77,9 @@ export default function Patient() {
                   </td>
                   <td>
                     <Link to={`/dashboard/make-payment?patId=${data.tokenId}`}>
-                      <button>Payment</button>
+                      <button>
+                        Payment <MdCurrencyRupee />
+                      </button>
                     </Link>
                   </td>
                   <td>
@@ -90,7 +94,7 @@ export default function Patient() {
                           style={{ backgroundColor: "#E31246" }}
                           type="submit"
                         >
-                          delete
+                          delete <MdDeleteForever />
                         </button>
                       </Link>
                     </Form>
@@ -113,7 +117,7 @@ export default function Patient() {
                     borderTopWidth: "2rem",
                     backgroundColor: "#22252a",
                   }}
-                  colSpan={10}
+                  colSpan={11}
                 >
                   No Records!
                 </th>
@@ -125,6 +129,7 @@ export default function Patient() {
     </div>
   );
 }
+
 export async function loader({ request }) {
   // checking if token is there
   const token = localStorage.getItem("token");
@@ -146,6 +151,7 @@ export async function loader({ request }) {
       // ------------- loading patient data ---------------------
       if (param.patId) {
         let dataToSend = {};
+
         if (typeof param.patId === "string" && !isNaN(Number(param.patId))) {
           if (param.patId.length === 10) {
             dataToSend = { patTele: param.patId };

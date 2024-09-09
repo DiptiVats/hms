@@ -66,23 +66,36 @@ export default function Payment() {
             </tr>
           </thead>
           <tbody>
-            {paymentData.map((data) => (
-              <tr key={data.tokenNo}>
-                <td>{data.date}</td>
-                <td>{data.tokenNo}</td>
-                <td>
-                  {data.patientName} | {data.age} Yrs | {data.gender}
-                  <br />
-                  Adderss: {data.address} <br />
-                  Telephone: {data.telephone}
-                </td>
-                <td>{data.type}</td>
-                <td>{data.amount}</td>
-                <td>
-                  <FaPrint className={classes.icon} />
-                </td>
-              </tr>
-            ))}
+            {paymentData === null ? (
+              paymentData.map((data) => (
+                <tr key={data.tokenNo}>
+                  <td>{data.date}</td>
+                  <td>{data.tokenNo}</td>
+                  <td>
+                    {data.patientName} | {data.age} Yrs | {data.gender}
+                    <br />
+                    Adderss: {data.address} <br />
+                    Telephone: {data.telephone}
+                  </td>
+                  <td>{data.type}</td>
+                  <td>{data.amount}</td>
+                  <td>
+                    <FaPrint className={classes.icon} />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <th
+                colSpan={6}
+                style={{
+                  backgroundColor: "transparent",
+                  fontSize: "1.2rem",
+                  height: "5rem",
+                }}
+              >
+                Failed To Load the Payment Details !
+              </th>
+            )}
           </tbody>
         </table>
       </div>

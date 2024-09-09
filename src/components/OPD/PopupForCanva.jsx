@@ -1,5 +1,8 @@
 import { useRef } from "react";
 import classes from "./PopupForCanva.module.css";
+import { FaThumbsUp } from "react-icons/fa6";
+
+import { FaPencilAlt } from "react-icons/fa";
 export default function PopupLayout({ patData, children, buttonVal }) {
   console.log(patData);
   const dialogRef = useRef();
@@ -20,10 +23,21 @@ export default function PopupLayout({ patData, children, buttonVal }) {
         >
           Close
         </button>
+        <button
+          onClick={closeModal}
+          style={{
+            position: "absolute",
+            bottom: "1rem",
+            right: "7rem",
+            backgroundColor: "blue",
+          }}
+        >
+          Done <FaThumbsUp />
+        </button>
       </dialog>
       {/* ------------ button section -------------------- */}
       <button onClick={showPopup} style={{ backgroundColor: "#2ea5c9" }}>
-        {buttonVal}
+        {buttonVal} <FaPencilAlt />
       </button>
     </>
   );

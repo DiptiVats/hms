@@ -105,7 +105,7 @@ export default function AddMedicine() {
           <Link to="/dashboard/medicine">
             <button type="button">Cancel</button>
           </Link>
-          <button type="submit">Add Medicine</button>
+          <button type="submit">Submit</button>
         </div>
       </Form>
     </div>

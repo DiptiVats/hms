@@ -20,7 +20,7 @@ export default function PopupLayout({ patData, children }) {
             position: "absolute",
             right: "1rem",
             bottom: "1rem",
-            backgroundColor: "#282b2f",
+            backgroundColor: "grey",
           }}
         >
           Close

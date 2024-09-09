@@ -65,34 +65,47 @@ export default function Medicine() {
             </tr>
           </thead>
           <tbody>
-            {medicineList.map((data) => (
-              <tr key={data.medId}>
-                <td>{data.medId}</td>
-                <td>{data.medCode}</td>
-                <td>{data.medCat}</td>
-                <td>{data.shortDesc}</td>
-                <td>{data.longDesc}</td>
-                <td>{data.disOrder}</td>
-                <td style={{ width: "4rem" }}>{data.medSide}</td>
-                <td>
-                  <Link to={`/dashboard/add-medicine?medId=${data.medId}`}>
-                    <button type="button">
-                      <FaEdit style={{ color: " white" }} />
+            {medicineList !== "null" ? (
+              medicineList.map((data) => (
+                <tr key={data.medId}>
+                  <td>{data.medId}</td>
+                  <td>{data.medCode}</td>
+                  <td>{data.medCat}</td>
+                  <td>{data.shortDesc}</td>
+                  <td>{data.longDesc}</td>
+                  <td>{data.disOrder}</td>
+                  <td style={{ width: "4rem" }}>{data.medSide}</td>
+                  <td>
+                    <Link to={`/dashboard/add-medicine?medId=${data.medId}`}>
+                      <button type="button">
+                        <FaEdit style={{ color: " white" }} />
+                      </button>
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      className={classes.deleteButton}
+                      style={{ width: "3rem" }}
+                      type="submit"
+                      onClick={() => DeletePatient(data)}
+                    >
+                      <RiDeleteBin6Line className={classes.deleteIcon} />
                     </button>
-                  </Link>
-                </td>
-                <td>
-                  <button
-                    className={classes.deleteButton}
-                    style={{ width: "3rem" }}
-                    type="submit"
-                    onClick={() => DeletePatient(data)}
-                  >
-                    <RiDeleteBin6Line className={classes.deleteIcon} />
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <th
+                colSpan={9}
+                style={{
+                  backgroundColor: "transparent",
+                  height: "6rem",
+                  fontSize: "1.2rem",
+                }}
+              >
+                no medicine list !
+              </th>
+            )}
           </tbody>
         </table>
       </>
@@ -115,7 +128,8 @@ export async function loader() {
         localStorage.removeItem("token");
         return redirect("/");
       }
-      const resData = response.json();
+      const resData = await response.json();
+      console.log(resData);
       return resData;
     } catch (err) {
       console.log(err);

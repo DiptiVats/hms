@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         loader: paymentLoader,
         action: paymentAction,
       },
-      { path: "consent", element: <Consent />, loader: tokenLoader },
+      { path: "consent", element: <Consent /> },
     ],
   },
 ]);
