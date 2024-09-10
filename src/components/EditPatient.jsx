@@ -27,7 +27,11 @@ export default function EditPatient() {
           <input
             type="text"
             name="secondName"
-            placeholder="Last Name*"
+            placeholder={
+              patientDataToEdit.lname === "" || patientDataToEdit.lname === null
+                ? "Last Name*"
+                : patientDataToEdit.lname
+            }
             defaultValue={patientDataToEdit.lname}
           />
         </div>

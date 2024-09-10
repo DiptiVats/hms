@@ -16,7 +16,7 @@ export default function AddPatient() {
         {/* ---------------------first grid ----------------*/}
         <div className={classes.firstGrid}>
           <input type="text" name="firstName" placeholder="First Name*" />
-          <input type="text" name="secondName" nameplaceholder="Last Name*" />
+          <input type="text" name="secondName" placeholder="Last Name*" />
         </div>
         {/* --------------------- second grid ----------------*/}
         <div className={classes.secondGrid}>

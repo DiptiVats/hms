@@ -44,7 +44,7 @@ export default function Medicine() {
           route="/medicine"
         />
       </div>
-
+      <br />
       <span style={{ color: "orange" }}>Medicine List</span>
       <table>
         <thead>
@@ -61,7 +61,7 @@ export default function Medicine() {
           </tr>
         </thead>
         <tbody>
-          {medicineList !== "null" ? (
+          {medicineList !== null ? (
             medicineList.map((data) => (
               <tr key={data.medId}>
                 <td>{data.medId}</td>

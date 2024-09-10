@@ -120,7 +120,6 @@ export async function action({ request }) {
     if (token && response.status === 200) {
       return redirect("/dashboard");
     }
-    console.log(token);
     return token;
   } catch (err) {
     console.log(err);
