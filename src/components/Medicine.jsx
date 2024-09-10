@@ -114,7 +114,7 @@ export async function loader({ request }) {
   console.log(param);
   const token = localStorage.getItem("token");
 
-  // ------------------------ load All medicine -------------------------------
+  // ------------------------ load All medicine ----------------------
   let Url = `${url}/Medicine/loadAllMedicines`;
   let fetchBlock = {
     method: "POST",
@@ -123,7 +123,7 @@ export async function loader({ request }) {
       Authorization: `Bearer ${token}`,
     },
   };
-
+  // ------------------- search single medicine -----------------------
   if (param.medId) {
     Url = `${url}/Medicine/loadMedicine`;
     fetchBlock = {
@@ -143,8 +143,8 @@ export async function loader({ request }) {
         localStorage.removeItem("token");
         return redirect("/");
       }
+      console.log("response ", response);
       const resData = await response.json();
-      console.log(resData);
       if (resData.length === undefined) {
         return [resData];
       }

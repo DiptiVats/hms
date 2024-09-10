@@ -25,9 +25,8 @@ export default function AddPatientForm({
         </div>
       </div>
       <div className={classes.hospitalName}>
-        <Link to="/dashboard">Shri Krishna Hospital &nbsp;</Link>/&nbsp;{" "}
-        {heading}
-        Dashboard
+        <Link to="/dashboard">Shri Krishna Hospital &nbsp;</Link>/&nbsp;
+        {heading} Dashboard
       </div>
       <Form className={classes.formSection}>
         <div className={classes.patientEntry}>

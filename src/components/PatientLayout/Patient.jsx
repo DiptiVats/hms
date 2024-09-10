@@ -19,6 +19,7 @@ export default function Patient() {
           heading="Patient"
           buttonText="Add Patient"
           val="patId"
+          route=""
         />
       </div>
       <div className={classes.patientTable}>
@@ -59,7 +60,12 @@ export default function Patient() {
                       : "Female"}
                     <br />
                     Adderss: {data.address} <br />
-                    Telephone: {data.telephone}
+                    Telephone:{" "}
+                    {data.telephone === "" ? (
+                      <span style={{ color: "#b43a25" }}>Null</span>
+                    ) : (
+                      data.telephone
+                    )}
                   </td>
 
                   <td>
