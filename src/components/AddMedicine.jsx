@@ -1,5 +1,6 @@
 import { Link, Form, redirect, useLoaderData } from "react-router-dom";
 import classes from "./AddMedicine.module.css";
+import { RxReset } from "react-icons/rx";
 import { url } from "../util/url";
 export default function AddMedicine() {
   const medData = useLoaderData();
@@ -103,7 +104,9 @@ export default function AddMedicine() {
         </div>
         <div className={classes.sixthGrid}>
           <Link to="/dashboard/medicine">
-            <button type="button">Cancel</button>
+            <button type="button">
+              <RxReset /> Back
+            </button>
           </Link>
           <button type="submit">Submit</button>
         </div>

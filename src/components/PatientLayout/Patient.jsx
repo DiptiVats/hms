@@ -4,7 +4,7 @@ import classes from "./Patient.module.css";
 import SearchForm from "./SearchForm";
 import { Form, Link, useLoaderData } from "react-router-dom";
 import { MdCurrencyRupee } from "react-icons/md";
-import { MdDeleteForever } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { url } from "../../util/url";
 import { redirect } from "react-router-dom";
 export default function Patient() {
@@ -14,7 +14,12 @@ export default function Patient() {
   return (
     <div className={classes.patientDetail}>
       <div>
-        <SearchForm text="Search By Patient Id / Contect No. / Patient Name" />
+        <SearchForm
+          text="Search By Patient Id / Contect No. / Patient Name"
+          heading="Patient"
+          buttonText="Add Patient"
+          val="patId"
+        />
       </div>
       <div className={classes.patientTable}>
         &nbsp; &nbsp; &nbsp;
@@ -32,7 +37,9 @@ export default function Patient() {
               </td>
               <td>Admit</td>
               <td>OPD</td>
-              <td>Payment</td>
+              <td>
+                Payment <MdCurrencyRupee />
+              </td>
               <td>Consent</td>
               <td>Delete</td>
               <td>edit</td>
@@ -77,9 +84,7 @@ export default function Patient() {
                   </td>
                   <td>
                     <Link to={`/dashboard/make-payment?patId=${data.tokenId}`}>
-                      <button>
-                        Payment <MdCurrencyRupee />
-                      </button>
+                      <button>Payment</button>
                     </Link>
                   </td>
                   <td>
@@ -91,10 +96,13 @@ export default function Patient() {
                     <Form action="post">
                       <Link to={`?tokenId=${data.tokenId}`}>
                         <button
-                          style={{ backgroundColor: "#E31246" }}
+                          style={{
+                            backgroundColor: "#E31246",
+                            width: "2.5rem",
+                          }}
                           type="submit"
                         >
-                          delete <MdDeleteForever />
+                          <RiDeleteBin6Line />
                         </button>
                       </Link>
                     </Form>

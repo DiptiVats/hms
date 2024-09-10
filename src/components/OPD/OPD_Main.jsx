@@ -2,7 +2,7 @@ import OPD_Header from "./OPD_Header";
 import classes from "./OPD_Main.module.css";
 import { Link, redirect, useLoaderData } from "react-router-dom";
 import { CgNotes } from "react-icons/cg";
-import { FaPenFancy } from "react-icons/fa";
+import { TbArrowBackUp } from "react-icons/tb";
 import { useState } from "react";
 import { url } from "../../util/url";
 import PopupLayout from "./PopupForCanva";
@@ -45,7 +45,7 @@ export default function OPD_Main() {
   }
   return (
     <div className={classes.opdWrapper}>
-      <OPD_Header patData1={opdData.data1} patData2={opdData.data2} />
+      <OPD_Header patData1={opdData.data1} />
       <div className={classes.opdMainWrapper}>
         <div className={classes.firstWrapper}>
           <p>Notes</p>
@@ -159,7 +159,10 @@ export default function OPD_Main() {
       <div className={classes.buttonSection}>
         <p>
           <Link to="..">
-            <button>Cancel</button>
+            <button>
+              <TbArrowBackUp />
+              &nbsp;Back
+            </button>
           </Link>
         </p>
         <p>
@@ -228,6 +231,10 @@ export async function loader({ request }) {
         },
         body: JSON.stringify(param),
       });
+      if (response1.status === 400) {
+        localStorage.removeItem("token");
+        return redirect("/");
+      }
       const resData1 = await response1.json();
       // -------------------- request to load OPD details ----------------------
       const response2 = await fetch(`${url}/Opd/loadPreviousNotes`, {
@@ -260,6 +267,6 @@ export async function loader({ request }) {
       return err;
     }
   } else {
-    redirect("/");
+    return redirect("/");
   }
 }

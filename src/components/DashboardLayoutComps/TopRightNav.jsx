@@ -1,8 +1,6 @@
 import classes from "./TopRightNav.module.css";
 import { CiMail } from "react-icons/ci";
-import { GoBell } from "react-icons/go";
-import { Link, redirect } from "react-router-dom";
-import { IoIosSearch } from "react-icons/io";
+import { Link } from "react-router-dom";
 import { GrPowerShutdown } from "react-icons/gr";
 export default function TopRightNav() {
   function handleLogout() {
@@ -10,17 +8,14 @@ export default function TopRightNav() {
   }
   return (
     <div className={classes.buttonWrapper}>
-      <button className={classes.buttonIcon}>
+      <button className={classes.buttonIcon1}>
         <CiMail />
       </button>
-      <button className={classes.buttonIcon}>
-        <GoBell />
-      </button>
-      <div style={{ flexGrow: 1 }}></div>
-      <button className={classes.buttonIcon}>
-        <IoIosSearch />
-      </button>
-      <button className={classes.buttonIcon} onClick={handleLogout}>
+      <button
+        className={classes.buttonIcon2}
+        onClick={handleLogout}
+        style={{ float: "right" }}
+      >
         <Link to="/" className={classes.logoutButton}>
           <GrPowerShutdown />
         </Link>

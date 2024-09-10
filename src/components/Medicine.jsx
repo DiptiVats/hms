@@ -1,10 +1,12 @@
 import { Link, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import classes from "./Medicine.module.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import SearchForm from "../components/PatientLayout/SearchForm";
 import { FaEdit } from "react-icons/fa";
 import { url } from "../util/url";
 export default function Medicine() {
   const medicineList = useLoaderData();
+
   const navigate = useNavigate();
   async function DeletePatient(medicine) {
     try {
@@ -33,103 +35,119 @@ export default function Medicine() {
 
   return (
     <div className={classes.mainWrapper}>
-      <>
-        <div className={classes.topWrapper}>
-          <div className={classes.patientText}>Medicine</div>
-          <div style={{ flexGrow: 2 }}></div>
-          <div>
-            <Link to="/dashboard/add-medicine">
-              <button className={classes.roundedButton}>Add Medicine</button>
-            </Link>
-          </div>
-        </div>
-        <div className={classes.hospitalName}>
-          <Link to="/dashboard">Shri Krishna Hospital &nbsp;</Link>/&nbsp;
-          Medicine
-        </div>
-        <br />
-        &nbsp;
-        <span style={{ color: "orange" }}>Medicine List</span>
-        <table>
-          <thead>
-            <tr>
-              <td>SR No.</td>
-              <td>Code</td>
-              <td>Category</td>
-              <td>Short Desc</td>
-              <td>Long Desc</td>
-              <td>Disp. Order</td>
-              <td>Side</td>
-              <td>edit</td>
-              <td>delete</td>
-            </tr>
-          </thead>
-          <tbody>
-            {medicineList !== "null" ? (
-              medicineList.map((data) => (
-                <tr key={data.medId}>
-                  <td>{data.medId}</td>
-                  <td>{data.medCode}</td>
-                  <td>{data.medCat}</td>
-                  <td>{data.shortDesc}</td>
-                  <td>{data.longDesc}</td>
-                  <td>{data.disOrder}</td>
-                  <td style={{ width: "4rem" }}>{data.medSide}</td>
-                  <td>
-                    <Link to={`/dashboard/add-medicine?medId=${data.medId}`}>
-                      <button type="button">
-                        <FaEdit style={{ color: " white" }} />
-                      </button>
-                    </Link>
-                  </td>
-                  <td>
-                    <button
-                      className={classes.deleteButton}
-                      style={{ width: "3rem" }}
-                      type="submit"
-                      onClick={() => DeletePatient(data)}
-                    >
-                      <RiDeleteBin6Line className={classes.deleteIcon} />
+      <div style={{ marginTop: "2rem" }} className={classes.formWrapper}>
+        <SearchForm
+          text="Search By Medicine Code"
+          heading="Medicine"
+          buttonText="Add Medicine"
+          val="medId"
+          route="/medicine"
+        />
+      </div>
+
+      <span style={{ color: "orange" }}>Medicine List</span>
+      <table>
+        <thead>
+          <tr>
+            <td>SR No.</td>
+            <td>Code</td>
+            <td>Category</td>
+            <td>Short Desc</td>
+            <td>Long Desc</td>
+            <td>Disp. Order</td>
+            <td>Side</td>
+            <td>edit</td>
+            <td>delete</td>
+          </tr>
+        </thead>
+        <tbody>
+          {medicineList !== "null" ? (
+            medicineList.map((data) => (
+              <tr key={data.medId}>
+                <td>{data.medId}</td>
+                <td>{data.medCode}</td>
+                <td>{data.medCat}</td>
+                <td>{data.shortDesc}</td>
+                <td>{data.longDesc}</td>
+                <td>{data.disOrder}</td>
+                <td style={{ width: "4rem" }}>{data.medSide}</td>
+                <td>
+                  <Link to={`/dashboard/add-medicine?medId=${data.medId}`}>
+                    <button type="button">
+                      <FaEdit style={{ color: " white" }} />
                     </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <th
-                colSpan={9}
-                style={{
-                  backgroundColor: "transparent",
-                  height: "6rem",
-                  fontSize: "1.2rem",
-                }}
-              >
-                no medicine list !
-              </th>
-            )}
-          </tbody>
-        </table>
-      </>
+                  </Link>
+                </td>
+                <td>
+                  <button
+                    className={classes.deleteButton}
+                    style={{ width: "3rem" }}
+                    type="submit"
+                    onClick={() => DeletePatient(data)}
+                  >
+                    <RiDeleteBin6Line className={classes.deleteIcon} />
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <th
+              colSpan={9}
+              style={{
+                backgroundColor: "transparent",
+                height: "6rem",
+                fontSize: "1.2rem",
+              }}
+            >
+              no medicine list !
+            </th>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-export async function loader() {
+export async function loader({ request }) {
+  const CurrentUrl = new URL(request.url);
+  const param = Object.fromEntries(CurrentUrl.searchParams.entries());
+  console.log(param);
   const token = localStorage.getItem("token");
+
+  // ------------------------ load All medicine -------------------------------
+  let Url = `${url}/Medicine/loadAllMedicines`;
+  let fetchBlock = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  if (param.medId) {
+    Url = `${url}/Medicine/loadMedicine`;
+    fetchBlock = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(param),
+    };
+  }
+
   if (token) {
     try {
-      const response = await fetch(`${url}/Medicine/loadAllMedicines`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(Url, fetchBlock);
       if (response.status === 400) {
         localStorage.removeItem("token");
         return redirect("/");
       }
       const resData = await response.json();
       console.log(resData);
+      if (resData.length === undefined) {
+        return [resData];
+      }
       return resData;
     } catch (err) {
       console.log(err);

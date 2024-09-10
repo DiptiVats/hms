@@ -44,8 +44,8 @@ const Canvas = () => {
         onMouseMove={draw}
         onMouseUp={endDrawing}
         onMouseLeave={endDrawing}
-        width={950} // 60rem (assuming 16px = 1rem, 60rem = 960px)
-        height={420} // 30rem (same calculation, 30rem = 480px)
+        width={950}
+        height={420}
         style={{
           display: "block",
           borderRadius: "3px",

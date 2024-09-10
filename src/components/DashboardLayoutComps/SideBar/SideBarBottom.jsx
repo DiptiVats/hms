@@ -1,7 +1,7 @@
 import { BiSolidPrinter } from "react-icons/bi";
 import { GoFile } from "react-icons/go";
-import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { IoPersonOutline } from "react-icons/io5";
+import { PiPillDuotone } from "react-icons/pi";
 import classes from "./SideBarBottom.module.css";
 import { NavLink } from "react-router-dom";
 import DorpDownList from "./DropDownList";
@@ -44,7 +44,7 @@ export default function SideBarBottom() {
       </div>
       <div to="/dashboard/medicine" className={classes.section}>
         <div className={classes.medicineIcon}>
-          <HiOutlineRocketLaunch
+          <PiPillDuotone
             className={toggleMedicine ? classes.bgColor : classes.sideBarIcon}
           />
         </div>
